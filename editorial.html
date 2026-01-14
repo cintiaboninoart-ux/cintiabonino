@@ -5,7 +5,87 @@
   <title>Cintia Bonino — Editorial</title>
 
   <style>
-    /* Usá el mismo bloque de estilos minimal + verde lima */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: #111111;
+  line-height: 1.6;
+}
+
+header {
+  padding: 70px 40px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+header h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0;
+}
+
+header p {
+  font-size: 16px;
+  margin-top: 10px;
+  color: #666;
+}
+
+nav {
+  background: #fff;
+  padding: 20px 40px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+nav a {
+  text-decoration: none;
+  color: #111;
+  font-weight: 500;
+  font-size: 15px;
+  padding-bottom: 4px;
+}
+
+nav a:hover {
+  border-bottom: 2px solid #9CFF2E;
+}
+
+section {
+  padding: 140px 40px 80px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.item {
+  background: #f5f5f5;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: #333;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
   </style>
 </head>
 
