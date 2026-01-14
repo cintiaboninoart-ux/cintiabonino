@@ -187,6 +187,25 @@ button:hover {
     padding: 0 10px;
   }
 }
+.contact-container {
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+}
+
+.contact-container p {
+  margin-bottom: 40px;
+  font-size: 16px;
+}
+
+.contact-container h2 {
+  font-size: 28px;
+  margin-bottom: 30px;
+  font-weight: 700;
+  border-bottom: 4px solid #9CFF2E;
+  display: inline-block;
+  padding-bottom: 6px;
+}
 
   </style>
 <header>
@@ -210,23 +229,27 @@ button:hover {
 </nav>
 
 <section>
-  <h2>Hablamos?</h2>
+  <div class="contact-container">
 
-  <p>
-    Instagram:
-    <a href="https://instagram.com/cinbonino" target="_blank">
-      @cinbonino
-    </a>
-  </p>
+    <h2>Hablamos</h2>
 
-  <!-- Reemplazá la URL con la de Formspree -->
-  <form action="https://formspree.io/f/mgoovwjg" method="POST">
-    <input type="text" name="name" placeholder="Nombre" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <textarea name="message" placeholder="Mensaje" rows="5" required></textarea>
-    <button type="submit">Enviar mensaje</button>
-  </form>
+    <p>
+      Instagram:
+      <a href="https://instagram.com/cinbonino" target="_blank">
+        @cinbonino
+      </a>
+    </p>
+
+    <form action="https://formspree.io/f/XXXXYYYY" method="POST">
+      <input type="text" name="name" placeholder="Nombre" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <textarea name="message" placeholder="Mensaje" rows="5" required></textarea>
+      <button type="submit">Enviar mensaje</button>
+    </form>
+
+  </div>
 </section>
+
 
 </body>
 </html>
