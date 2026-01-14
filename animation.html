@@ -5,47 +5,126 @@
   <title>Cintia Bonino — Animación</title>
 
   <style>
-    body {
-      margin: 0;
-      font-family: Helvetica, Arial, sans-serif;
-      background: #f2f2f2;
-      color: #111;
-    }
+   body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: #111111;
+  line-height: 1.6;
+}
 
-    nav {
-      background: #fff;
-      padding: 20px 40px;
-      border-bottom: 1px solid #ddd;
-    }
+header {
+  padding: 70px 40px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
 
-    nav a {
-      margin-right: 20px;
-      text-decoration: none;
-      color: #000;
-      font-weight: bold;
-    }
+header h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0;
+}
 
-    section {
-      padding: 80px 40px;
-      max-width: 1100px;
-      margin: auto;
-    }
+header p {
+  font-size: 16px;
+  margin-top: 10px;
+  color: #666;
+}
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 30px;
-    }
+nav {
+  background: #fff;
+  padding: 20px 40px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+}
 
-    .item {
-      background: #ddd;
-      height: 280px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      color: #555;
-    }
+nav a {
+  text-decoration: none;
+  color: #111;
+  font-weight: 500;
+  font-size: 15px;
+  padding-bottom: 4px;
+}
+
+nav a:hover {
+  border-bottom: 2px solid #9CFF2E;
+}
+
+section {
+  padding: 80px 40px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+h2 {
+  font-size: 28px;
+  margin-bottom: 40px;
+  font-weight: 700;
+  color: #000;
+  display: inline-block;
+  border-bottom: 4px solid #9CFF2E;
+  padding-bottom: 6px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.item {
+  background: #f5f5f5;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: #333;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+footer {
+  padding: 40px;
+  text-align: center;
+  background: #fff;
+  color: #666;
+  font-size: 14px;
+  border-top: 1px solid #ddd;
+}
+
+form {
+  max-width: 500px;
+  margin: auto;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+button {
+  padding: 12px 30px;
+  background: #9CFF2E;
+  color: #000;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+button:hover {
+  background: #b6ff5f;
+}
   </style>
 </head>
 
