@@ -36,6 +36,7 @@
       position: sticky;
       top: 0;
       border-bottom: 1px solid #ddd;
+      z-index: 10;
     }
 
     nav a {
@@ -45,10 +46,19 @@
       font-weight: bold;
     }
 
+    nav a:hover {
+      opacity: 0.6;
+    }
+
     section {
       padding: 80px 40px;
       max-width: 1100px;
       margin: auto;
+    }
+
+    h2 {
+      margin-bottom: 40px;
+      font-size: 32px;
     }
 
     .grid {
@@ -92,6 +102,33 @@
     .lang a:hover {
       opacity: 1;
     }
+
+    /* Formulario */
+    form {
+      max-width: 500px;
+      margin: auto;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      padding: 12px 30px;
+      background: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
   </style>
 </head>
 
@@ -107,12 +144,47 @@
   </header>
 
   <nav>
+    <a href="#work">Selección de trabajo</a>
+    <a href="#commercial">Comercial</a>
+    <a href="#animation">Animación</a>
     <a href="#about">Sobre mí</a>
-    <a href="#portfolio">Portfolio</a>
-    <a href="#projects">Proyectos</a>
     <a href="#contact">Contacto</a>
   </nav>
 
+  <!-- SELECCIÓN DE TRABAJO -->
+  <section id="work">
+    <h2>Selección de trabajo</h2>
+
+    <div class="grid">
+      <div class="item">Proyecto 1</div>
+      <div class="item">Proyecto 2</div>
+      <div class="item">Proyecto 3</div>
+      <div class="item">Proyecto 4</div>
+    </div>
+  </section>
+
+  <!-- COMERCIAL -->
+  <section id="commercial">
+    <h2>Comercial</h2>
+
+    <div class="grid">
+      <div class="item">Campaña 1</div>
+      <div class="item">Campaña 2</div>
+      <div class="item">Campaña 3</div>
+    </div>
+  </section>
+
+  <!-- ANIMACIÓN -->
+  <section id="animation">
+    <h2>Animación</h2>
+
+    <div class="grid">
+      <div class="item">Animación 1</div>
+      <div class="item">Animación 2</div>
+    </div>
+  </section>
+
+  <!-- SOBRE MÍ -->
   <section id="about">
     <h2>Sobre mí</h2>
     <p>
@@ -122,32 +194,31 @@
     </p>
   </section>
 
-  <section id="portfolio">
-    <h2>Portfolio</h2>
+  <!-- CONTACTO -->
+ <section id="contact">
+  <h2>Contacto</h2>
 
-    <div class="grid">
-      <div class="item">Imagen 1</div>
-      <div class="item">Imagen 2</div>
-      <div class="item">Imagen 3</div>
-      <div class="item">Imagen 4</div>
-      <div class="item">Imagen 5</div>
-      <div class="item">Imagen 6</div>
-    </div>
-  </section>
+  <!-- Instagram -->
+  <p style="text-align:center; margin-bottom:40px;">
+    Instagram:
+    <a href="https://instagram.com/cinbonino" target="_blank">
+      @cinbonino
+    </a>
+  </p>
 
-  <section id="projects">
-    <h2>Proyectos</h2>
-    <p>Próximamente: proyectos editoriales, culturales y colaborativos.</p>
-  </section>
+  <!-- Formulario -->
+  <form action="https://formspree.io/f/mgoovwjg" method="POST">
 
-  <section id="contact">
-    <h2>Contacto</h2>
-    <p>
-      Instagram:
-       <a href="https://www.instagram.com/cinbonino/" target="_blank">
-         @cinbonino
-    </p>
-  </section>
+    <input type="text" name="name" placeholder="Nombre" required>
+
+    <input type="email" name="email" placeholder="Email" required>
+
+    <textarea name="message" placeholder="Mensaje" rows="5" required></textarea>
+
+    <button type="submit">Enviar mensaje</button>
+
+  </form>
+</section>
 
   <footer>
     © 2026 — Cintia Bonino
@@ -155,4 +226,3 @@
 
 </body>
 </html>
-
