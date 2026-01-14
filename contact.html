@@ -13,78 +13,50 @@ body {
   line-height: 1.6;
 }
 
-header {
-  padding: 70px 40px;
-  text-align: center;
-  border-bottom: 1px solid #ddd;
-}
-
-header h1 {
-  font-size: 36px;
-  font-weight: 700;
-  margin: 0;
-}
-
-header p {
-  font-size: 16px;
-  margin-top: 10px;
-  color: #666;
-}
-
-nav {
-  background: #fff;
-  border-bottom: 1px solid #ddd;
-
+/* MENÚ */
+.nav {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 100;
-
-  display: flex;
-  justify-content: center;
+  background: #ffffff;
+  border-bottom: 1px solid #ddd;
+  z-index: 1000;
 }
 
 .nav-inner {
-  width: 100%;
   max-width: 1100px;
-  padding: 20px 40px;
+  margin: auto;
+  padding: 20px 24px;
   display: flex;
-  gap: 28px;
   justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
 }
 
-nav a {
+.nav-inner a {
   text-decoration: none;
   color: #111;
-  font-weight: 500;
   font-size: 15px;
+  font-weight: 500;
   padding-bottom: 4px;
 }
 
-nav a:hover {
+.nav-inner a:hover {
   border-bottom: 2px solid #9CFF2E;
 }
 
+/* CONTENIDO */
 section {
-  padding: 140px 40px 80px;
   max-width: 1100px;
   margin: auto;
+  padding: 140px 24px 80px;
 }
 
-h2 {
-  font-size: 28px;
-  margin-bottom: 40px;
-  font-weight: 700;
-  color: #000;
-  display: inline-block;
-  border-bottom: 4px solid #9CFF2E;
-  padding-bottom: 6px;
-}
-
+/* GRID */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 24px;
 }
 
@@ -96,60 +68,53 @@ h2 {
   justify-content: center;
   font-size: 15px;
   color: #333;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-}
-
-footer {
-  padding: 40px;
+/* CONTACTO */
+.contact-container {
+  max-width: 600px;
+  margin: auto;
   text-align: center;
-  background: #fff;
-  color: #666;
-  font-size: 14px;
-  border-top: 1px solid #ddd;
+}
+
+.contact-container h2 {
+  font-size: 28px;
+  margin-bottom: 30px;
+  border-bottom: 4px solid #9CFF2E;
+  display: inline-block;
+  padding-bottom: 6px;
+}
+
+.contact-container p {
+  margin-bottom: 40px;
 }
 
 form {
-  max-width: 500px;
-  margin: auto;
+  width: 100%;
 }
 
 input, textarea {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
-  font-size: 14px;
   margin-bottom: 15px;
+  font-size: 14px;
+  box-sizing: border-box;
 }
 
 button {
   padding: 12px 30px;
   background: #9CFF2E;
-  color: #000;
   border: none;
-  cursor: pointer;
-  font-size: 14px;
   font-weight: 600;
+  cursor: pointer;
 }
 
-button:hover {
-  background: #b6ff5f;
-}
-/* Responsive para móvil */
+/* RESPONSIVE */
 @media (max-width: 768px) {
 
-  nav {
-    flex-wrap: wrap;
+  .nav-inner {
     gap: 16px;
-    padding: 16px 20px;
-  }
-
-  nav a {
-    font-size: 14px;
   }
 
   section {
@@ -158,53 +123,15 @@ button:hover {
 
   .grid {
     grid-template-columns: 1fr;
-    gap: 20px;
   }
 
   .item {
     height: 220px;
-    font-size: 14px;
   }
 
-  header {
-    padding: 50px 20px;
-  }
-
-  header h1 {
-    font-size: 28px;
-  }
-
-  header p {
-    font-size: 14px;
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  form {
+  .contact-container {
     padding: 0 10px;
   }
-}
-.contact-container {
-  max-width: 600px;
-  margin: auto;
-  text-align: center;
-}
-
-.contact-container p {
-  margin-bottom: 40px;
-  font-size: 16px;
-}
-
-.contact-container h2 {
-  font-size: 28px;
-  margin-bottom: 30px;
-  font-weight: 700;
-  border-bottom: 4px solid #9CFF2E;
-  display: inline-block;
-  padding-bottom: 6px;
 }
 
   </style>
