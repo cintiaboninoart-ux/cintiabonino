@@ -36,6 +36,7 @@
       position: sticky;
       top: 0;
       border-bottom: 1px solid #ddd;
+      z-index: 10;
     }
 
     nav a {
@@ -45,10 +46,19 @@
       font-weight: bold;
     }
 
+    nav a:hover {
+      opacity: 0.6;
+    }
+
     section {
       padding: 80px 40px;
       max-width: 1100px;
       margin: auto;
+    }
+
+    h2 {
+      margin-bottom: 40px;
+      font-size: 32px;
     }
 
     .grid {
@@ -74,6 +84,7 @@
       color: #fff;
     }
 
+    /* Language selector */
     .lang {
       position: absolute;
       top: 20px;
@@ -91,6 +102,33 @@
     .lang a:hover {
       opacity: 1;
     }
+
+    /* Form */
+    form {
+      max-width: 500px;
+      margin: auto;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      padding: 12px 30px;
+      background: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
   </style>
 </head>
 
@@ -106,12 +144,47 @@
   </header>
 
   <nav>
+    <a href="#work">Selected Work</a>
+    <a href="#commercial">Commercial</a>
+    <a href="#animation">Animation</a>
     <a href="#about">About</a>
-    <a href="#portfolio">Portfolio</a>
-    <a href="#projects">Projects</a>
     <a href="#contact">Contact</a>
   </nav>
 
+  <!-- SELECTED WORK -->
+  <section id="work">
+    <h2>Selected Work</h2>
+
+    <div class="grid">
+      <div class="item">Project 1</div>
+      <div class="item">Project 2</div>
+      <div class="item">Project 3</div>
+      <div class="item">Project 4</div>
+    </div>
+  </section>
+
+  <!-- COMMERCIAL -->
+  <section id="commercial">
+    <h2>Commercial</h2>
+
+    <div class="grid">
+      <div class="item">Campaign 1</div>
+      <div class="item">Campaign 2</div>
+      <div class="item">Campaign 3</div>
+    </div>
+  </section>
+
+  <!-- ANIMATION -->
+  <section id="animation">
+    <h2>Animation</h2>
+
+    <div class="grid">
+      <div class="item">Animation 1</div>
+      <div class="item">Animation 2</div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
   <section id="about">
     <h2>About</h2>
     <p>
@@ -121,31 +194,31 @@
     </p>
   </section>
 
-  <section id="portfolio">
-    <h2>Portfolio</h2>
-
-    <div class="grid">
-      <div class="item">Image 1</div>
-      <div class="item">Image 2</div>
-      <div class="item">Image 3</div>
-      <div class="item">Image 4</div>
-      <div class="item">Image 5</div>
-      <div class="item">Image 6</div>
-    </div>
-  </section>
-
-  <section id="projects">
-    <h2>Projects</h2>
-    <p>Coming soon: editorial, cultural and collaborative projects.</p>
-  </section>
-
+  <!-- CONTACT -->
   <section id="contact">
     <h2>Contact</h2>
-    <p>
-         Instagram:
-       <a href="https://www.instagram.com/cinbonino/" target="_blank">
-         @cinbonino
+
+    <!-- Instagram -->
+    <p style="text-align:center; margin-bottom:40px;">
+      Instagram:
+      <a href="https://instagram.com/cinbonino" target="_blank">
+        @cinbonino
+      </a>
     </p>
+
+    <!-- Form -->
+    <!-- IMPORTANT: replace the URL with your Formspree link -->
+    <form action="https://formspree.io/f/mgoovwjg" method="POST">
+
+      <input type="text" name="name" placeholder="Name" required>
+
+      <input type="email" name="email" placeholder="Email" required>
+
+      <textarea name="message" placeholder="Message" rows="5" required></textarea>
+
+      <button type="submit">Send message</button>
+
+    </form>
   </section>
 
   <footer>
@@ -154,4 +227,3 @@
 
 </body>
 </html>
-
