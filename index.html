@@ -171,6 +171,40 @@ header p {
   height: 100%;
   object-fit: cover;
 }
+/* MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  overflow: auto;
+}
+
+.modal-content {
+  max-width: 800px;
+  margin: 80px auto;
+  padding: 20px;
+}
+
+.modal-content img {
+  width: 100%;
+  margin-bottom: 30px;
+  display: block;
+}
+
+.close {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+}
+
   </style>
 <head>
   <meta charset="UTF-8">
@@ -197,19 +231,68 @@ header p {
 <section>
   <div class="grid">
 
-  <div class="item">
-    <img src="NEW YORKER PESO photo.png" alt="NEW YORKER PESO photo.png">
-  </div>
+  <div class="item" onclick="openProject('newyorker')">
+  <img src="NEW YORKER PESO photo.png" alt="New Yorker">
+</div>
 
-  <div class="item">
-    <img src="ho know you photo.png" alt="ho know you photo.png">
-  </div>
+  <div class="item" onclick="openProject('ho')">
+  <img src="ho know you photo.png" alt="Ho Know You">
+</div>
 
-  <div class="item">
-    <img src="rata photo.png" alt="rata photo.png">
-  </div>
+<div class="item" onclick="openProject('rata')">
+  <img src="rata photo.png" alt="Rata">
+</div>
 
 </section>
+<!-- MODAL GALERÍA -->
+<div id="modal" class="modal">
+  <span class="close">&times;</span>
+  <div class="modal-content" id="modal-content"></div>
+</div>
+<script>
+const projects = {
+  newyorker: [
+    "NEW YORKER PESO photo.png",
+    "newyorker_2.png",
+    "newyorker_3.png"
+  ],
+  ho: [
+    "ho know you photo.png",
+    "ho_2.png",
+    "ho_3.png"
+  ],
+  rata: [
+    "rata photo.png",
+    "rata_2.png",
+    "rata_3.png"
+  ]
+};
 
+function openProject(projectName) {
+  const modal = document.getElementById("modal");
+  const content = document.getElementById("modal-content");
+
+  content.innerHTML = "";
+
+  projects[projectName].forEach(img => {
+    const image = document.createElement("img");
+    image.src = img;
+    content.appendChild(image);
+  });
+
+  modal.style.display = "block";
+}
+
+document.querySelector(".close").onclick = function() {
+  document.getElementById("modal").style.display = "none";
+}
+
+window.onclick = function(event) {
+  const modal = document.getElementById("modal");
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
 </body>
 </html>
