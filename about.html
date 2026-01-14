@@ -96,7 +96,18 @@
       max-width: 420px;
       font-size: 16px;
     }
+@media (max-width: 768px) {
 
+  .about-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .about-text {
+    max-width: 320px;   /* mismo ancho que la foto */
+    text-align: center;
+  }
+}
     /* RESPONSIVE */
     @media (max-width: 768px) {
       section {
