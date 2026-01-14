@@ -3,137 +3,119 @@
 <head>
   <meta charset="UTF-8">
   <title>Cintia Bonino — Sobre mí</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-  body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #ffffff;
-  color: #111111;
-  line-height: 1.6;
-}
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #ffffff;
+      color: #111111;
+      line-height: 1.6;
+    }
 
-/* MENÚ */
-.nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: #ffffff;
-  border-bottom: 1px solid #ddd;
-  z-index: 1000;
-}
+    /* HEADER */
+    header {
+      max-width: 1100px;
+      margin: auto;
+      padding: 120px 24px 40px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
 
-.nav-inner {
-  max-width: 1100px;
-  margin: auto;
-  padding: 20px 24px;
-  display: flex;
-  justify-content: center;
-  gap: 28px;
-  flex-wrap: wrap;
-}
+    header h1 {
+      font-size: 36px;
+      font-weight: 700;
+      margin: 0;
+    }
 
-.nav-inner a {
-  text-decoration: none;
-  color: #111;
-  font-size: 15px;
-  font-weight: 500;
-  padding-bottom: 4px;
-}
+    header p {
+      font-size: 16px;
+      margin-top: 12px;
+      color: #666;
+    }
 
-.nav-inner a:hover {
-  border-bottom: 2px solid #9CFF2E;
-}
+    /* MENÚ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #ffffff;
+      border-bottom: 1px solid #ddd;
+      z-index: 1000;
+    }
 
-/* CONTENIDO */
-section {
-  max-width: 1100px;
-  margin: auto;
-  padding: 140px 24px 80px;
-}
+    .nav-inner {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px 32px;
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
 
-/* GRID */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 24px;
-}
+    .nav-inner a {
+      text-decoration: none;
+      color: #111;
+      font-size: 15px;
+      font-weight: 500;
+      padding-bottom: 4px;
+    }
 
-.item {
-  background: #f5f5f5;
-  height: 260px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
-  color: #333;
-}
+    .nav-inner a:hover {
+      border-bottom: 2px solid #9CFF2E;
+    }
 
-/* CONTACTO */
-.contact-container {
-  max-width: 600px;
-  margin: auto;
-  text-align: center;
-}
+    /* CONTENIDO */
+    section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 140px 32px 80px;
+    }
 
-.contact-container h2 {
-  font-size: 28px;
-  margin-bottom: 30px;
-  border-bottom: 4px solid #9CFF2E;
-  display: inline-block;
-  padding-bottom: 6px;
-}
+    /* ABOUT */
+    .about-container {
+      display: flex;
+      gap: 60px;
+      align-items: center;
+      justify-content: center;
+      max-width: 900px;
+      margin: auto;
+      flex-wrap: wrap;
+    }
 
-.contact-container p {
-  margin-bottom: 40px;
-}
+    .about-container img {
+      max-width: 320px;
+      width: 100%;
+      border-radius: 6px;
+    }
 
-form {
-  width: 100%;
-}
+    .about-text {
+      max-width: 420px;
+      font-size: 16px;
+    }
 
-input, textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  margin-bottom: 15px;
-  font-size: 14px;
-  box-sizing: border-box;
-}
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      section {
+        padding: 120px 20px 60px;
+      }
 
-button {
-  padding: 12px 30px;
-  background: #9CFF2E;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-}
+      .nav-inner {
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-
-  .nav-inner {
-    gap: 16px;
-  }
-
-  section {
-    padding: 120px 20px 60px;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .item {
-    height: 220px;
-  }
-
-  .contact-container {
-    padding: 0 10px;
-  }
-}
 <body>
+
+<header>
+  <h1>Cintia Bonino</h1>
+  <p>Ilustración · Arte · Dirección de arte</p>
+</header>
 
 <nav class="nav">
   <div class="nav-inner">
@@ -157,31 +139,6 @@ button {
         narrativa, identidad y emoción.
       </p>
     </div>
-
-  </div>
-</section>
-.about-container {
-  display: flex;
-  gap: 60px;
-  align-items: center;
-  justify-content: center;
-  max-width: 900px;
-  margin: auto;
-  flex-wrap: wrap;
-}
-
-.about-container img {
-  max-width: 320px;
-  width: 100%;
-  border-radius: 6px;
-}
-
-.about-text {
-  max-width: 420px;
-  font-size: 16px;
-}
-
-    </p>
 
   </div>
 </section>
