@@ -187,6 +187,25 @@ button:hover {
     padding: 0 10px;
   }
 }
+.about-container {
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+  max-width: 900px;
+  margin: auto;
+}
+
+.about-container img {
+  max-width: 320px;
+  width: 100%;
+  border-radius: 6px;
+}
+
+.about-text {
+  max-width: 420px;
+  font-size: 16px;
+}
 
   </style>
 <head>
@@ -207,15 +226,21 @@ button:hover {
 </nav>
 
 <section>
-  <div style="display:flex; gap:40px; align-items:center; flex-wrap:wrap;">
+  <div class="about-container">
 
-   <img src="IMG_4364.jpg" alt="Cintia Bonino"
-     style="max-width:300px; width:100%; border-radius:6px;">
+    <img src="IMG_4364.jpg" alt="Cintia Bonino">
 
-    <p style="max-width:500px;">
-      Soy artista visual e ilustradora. Trabajo con proyectos editoriales,
-      culturales y experimentales. Mi obra explora la relación entre imagen,
-      narrativa, identidad y emoción.
+    <div class="about-text">
+      <p>
+        Soy artista visual e ilustradora. Trabajo con proyectos editoriales,
+        culturales y experimentales. Mi obra explora la relación entre imagen,
+        narrativa, identidad y emoción.
+      </p>
+    </div>
+
+  </div>
+</section>
+
     </p>
 
   </div>
