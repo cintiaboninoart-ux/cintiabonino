@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cintia Bonino — Contacto</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Helvetica, Arial, sans-serif;
+      background: #f2f2f2;
+      color: #111;
+    }
+
+    nav {
+      background: #fff;
+      padding: 20px 40px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    nav a {
+      margin-right: 20px;
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+    }
+
+    section {
+      padding: 80px 40px;
+      max-width: 700px;
+      margin: auto;
+      text-align: center;
+    }
+
+    form {
+      margin-top: 40px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 12px 30px;
+      background: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<nav>
+  <a href="index.html">Selección de trabajo</a>
+  <a href="commercial.html">Comercial</a>
+  <a href="animation.html">Animación</a>
+  <a href="about.html">Sobre mí</a>
+  <a href="contact.html">Contacto</a>
+</nav>
+
+<section>
+  <h2>Contacto</h2>
+
+  <p>
+    Instagram:
+    <a href="https://instagram.com/cinbonino" target="_blank">
+      @cinbonino
+    </a>
+  </p>
+
+  <!-- Reemplazá la URL con la de Formspree -->
+  <form action="https://formspree.io/f/XXXXYYYY" method="POST">
+    <input type="text" name="name" placeholder="Nombre" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <textarea name="message" placeholder="Mensaje" rows="5" required></textarea>
+    <button type="submit">Enviar mensaje</button>
+  </form>
+</section>
+
+</body>
+</html>
