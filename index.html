@@ -56,9 +56,9 @@
     }
 
     header h1 {
-      margin: 0;
-      font-size: 36px;
-    }
+  font-size: 36px;
+  margin: 0;
+}
 
     .subtitle {
       color: #666;
@@ -101,16 +101,19 @@
     }
 
    /* Portada con tamaño real */
+/* Portada con tamaño editorial real */
 .item-original {
   aspect-ratio: unset;      /* elimina el cuadrado */
   height: auto;
-  grid-row: span 2;         /* ocupa más alto en la grilla */
+  grid-row: span 2;         /* ocupa dos filas reales */
+  align-self: start;       /* evita que se estire */
 }
 
 .item-original img {
   width: 100%;
   height: auto;
-  object-fit: contain;
+  object-fit: cover;       /* se comporta como portada */
+  display: block;
 }
 
     /* OVERLAY */
@@ -201,9 +204,11 @@
       header { padding-top: 170px; }
 
       .grid {
-        grid-template-columns: 1fr;
-        gap: 28px;
-      }
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;   /* filas reales */
+  gap: 24px;
+}
 
       .overlay {
         position: static;
