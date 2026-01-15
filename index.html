@@ -302,7 +302,9 @@ function openProject(name) {
 function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
-</script>
+
+/* ---------- SWIPE ---------- */
+
 let startX = 0;
 let startY = 0;
 let endX = 0;
@@ -310,14 +312,12 @@ let endY = 0;
 
 const modal = document.getElementById("modal");
 
-// TOUCH START
 modal.addEventListener("touchstart", function(e) {
   const touch = e.touches[0];
   startX = touch.clientX;
   startY = touch.clientY;
 }, { passive: true });
 
-// TOUCH END
 modal.addEventListener("touchend", function(e) {
   const touch = e.changedTouches[0];
   endX = touch.clientX;
@@ -329,12 +329,11 @@ function handleSwipe() {
   const diffX = startX - endX;
   const diffY = startY - endY;
 
-  // solo si el gesto es más horizontal que vertical
   if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 60) {
     if (diffX > 0) {
-      nextProject();   // swipe izquierda
+      nextProject();
     } else {
-      prevProject();   // swipe derecha
+      prevProject();
     }
   }
 }
