@@ -180,50 +180,40 @@ section {
 
 /* MOBILE */
 @media (max-width: 768px) {
-  .grid { grid-template-columns: 1fr; }
-  .overlay { position: static; background: none; opacity: 1; }
-  .overlay span { color: #111; }
-  .nav-arrow { display: none; }
-}
-/* Drag real con seguimiento */
-.modal-content {
-  transition: transform 0.35s ease;
-  will-change: transform;
-}
+  header { padding-top: 170px; }
 
-.modal-content.dragging {
-  transition: none;
-  cursor: grabbing;
-}
-/* Indicador swipe */
-.swipe-indicator {
-  position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  opacity: 0.5;
-  pointer-events: none;
-  animation: swipePulse 3s ease infinite;
-}
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
 
-.swipe-indicator span {
-  color: white;
-  font-size: 18px;
-}
+  .overlay {
+    position: static;
+    background: none;
+    opacity: 1;
+  }
 
-.swipe-indicator .line {
-  width: 40px;
-  height: 1px;
-  background: rgba(255,255,255,0.6);
-}
+  .overlay span {
+    color: #111;
+    font-size: 15px;
+  }
 
-@keyframes swipePulse {
-  0% { opacity: 0.3; }
-  50% { opacity: 0.7; }
-  100% { opacity: 0.3; }
+  .nav-arrow {
+    display: none;
+  }
+
+  .modal-content {
+    margin: 70px auto 50px;
+    padding: 16px;
+  }
+
+  .project-title {
+    font-size: 22px;
+  }
+
+  .project-description {
+    font-size: 14px;
+  }
 }
 
 </style>
@@ -253,17 +243,17 @@ section {
   <div class="grid">
 
     <div class="item" onclick="openProject(0)">
-      <img src="NEW YORKER PESO photo.png">
+      <img src="NEW YORKER PESO photo.png" alt="">
       <div class="overlay"><span>Should you just give up?</span></div>
     </div>
 
     <div class="item" onclick="openProject(1)">
-      <img src="ho know you photo.png">
+      <img src="ho know you photo.png" alt="">
       <div class="overlay"><span>Does anyone really know you?</span></div>
     </div>
 
     <div class="item" onclick="openProject(2)">
-      <img src="rata photo.png">
+      <img src="rata photo.png" alt="">
       <div class="overlay"><span>What animals understand about death?</span></div>
     </div>
 
@@ -276,10 +266,6 @@ section {
   <div class="nav-arrow left" onclick="prevProject()">‹</div>
   <div class="nav-arrow right" onclick="nextProject()">›</div>
   <div class="modal-content" id="modal-content"></div>
-  <div class="swipe-indicator">
-  <span>‹</span>
-  <span class="line"></span>
-  <span>›</span>
 </div>
 
 <script>
@@ -353,97 +339,10 @@ function prevProject() {
   currentProjectIndex = (currentProjectIndex - 1 + projects.length) % projects.length;
   openProject(currentProjectIndex);
 }
-/* ---------- DRAG REAL (SWIPE CON SEGUIMIENTO SUAVE) ---------- */
-
-const modalEl = document.getElementById("modal");
-const modalContentEl = document.getElementById("modal-content");
-
-let startX = 0;
-let currentX = 0;
-let deltaX = 0;
-let hasMoved = false;
-
-const SWIPE_THRESHOLD = 160;
-const MOVE_THRESHOLD = 10;
-
-/* Touch start */
-modalContentEl.addEventListener("touchstart", (e) => {
-  if (modalEl.style.display === "none") return;
-
-  startX = e.touches[0].clientX;
-  currentX = startX;
-  deltaX = 0;
-  hasMoved = false;
-}, { passive: true });
-
-/* Touch move */
-modalContentEl.addEventListener("touchmove", (e) => {
-  currentX = e.touches[0].clientX;
-  deltaX = currentX - startX;
-
-  if (Math.abs(deltaX) > MOVE_THRESHOLD) {
-    hasMoved = true;
-    modalContentEl.classList.add("dragging");
-
-    // resistencia: se mueve más lento que el dedo
-    const resistance = deltaX * 0.4;
-    modalContentEl.style.transform = `translateX(${resistance}px)`;
-  }
-}, { passive: true });
-
-/* Touch end */
-modalContentEl.addEventListener("touchend", () => {
-  if (!hasMoved) return;
-
-  modalContentEl.classList.remove("dragging");
-
-  if (Math.abs(deltaX) > SWIPE_THRESHOLD) {
-    if (deltaX < 0) {
-      animateToNext();
-    } else {
-      animateToPrev();
-    }
-  } else {
-    modalContentEl.style.transition = "transform 0.35s ease";
-    modalContentEl.style.transform = "translateX(0)";
-  }
-});
-
-/* ---------- ANIMACIONES ---------- */
-
-function animateToNext() {
-  modalContentEl.style.transition = "transform 0.35s ease";
-  modalContentEl.style.transform = "translateX(-60%)";
-
-  setTimeout(() => {
-    nextProject();
-    modalContentEl.style.transition = "none";
-    modalContentEl.style.transform = "translateX(100%)";
-
-    requestAnimationFrame(() => {
-      modalContentEl.style.transition = "transform 0.35s ease";
-      modalContentEl.style.transform = "translateX(0)";
-    });
-  }, 300);
-}
-
-function animateToPrev() {
-  modalContentEl.style.transition = "transform 0.35s ease";
- modalContentEl.style.transform = "translateX(-60%)";
-
-  setTimeout(() => {
-    prevProject();
-    modalContentEl.style.transition = "none";
-    modalContentEl.style.transform = "translateX(-100%)";
-
-    requestAnimationFrame(() => {
-      modalContentEl.style.transition = "transform 0.35s ease";
-      modalContentEl.style.transform = "translateX(0)";
-    });
-  }, 300);
-}
 
 </script>
 
+</body>
+</html>
 </body>
 </html>
