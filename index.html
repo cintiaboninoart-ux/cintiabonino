@@ -98,10 +98,22 @@
   object-fit: cover;
 }
 
-/* Anna ocupa dos columnas */
+/* Anna ocupa dos columnas pero el marco se ajusta a la imagen */
 .item-horizontal {
   grid-column: span 2;
   height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent; /* elimina fondo */
+}
+
+/* Imagen de Anna en tamaño real */
+.item-horizontal img {
+  height: 100%;
+  width: auto;              /* ancho real */
+  object-fit: contain;
+  background: transparent; /* sin marco gris */
 }
 
 /* Imagen de Anna completa, sin recorte */
