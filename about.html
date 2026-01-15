@@ -3,7 +3,144 @@
 <head>
   <meta charset="UTF-8">
   <title>Cintia Bonino — Sobre mí</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+  <style>
+    .name-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-weight: 400;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #ffffff;
+      color: #111111;
+      line-height: 1.6;
+    }
+
+    /* HEADER */
+    header {
+      max-width: 1100px;
+      margin: auto;
+      padding: 120px 24px 40px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h1 {
+      font-size: 36px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    header p {
+      font-size: 16px;
+      margin-top: 12px;
+      color: #666;
+    }
+
+    /* MENÚ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #ffffff;
+      border-bottom: 1px solid #ddd;
+      z-index: 1000;
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px 32px;
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .nav-inner a {
+      text-decoration: none;
+      color: #111;
+      font-size: 15px;
+      font-weight: 500;
+      padding-bottom: 4px;
+    }
+
+    .nav-inner a:hover {
+      border-bottom: 2px solid #9CFF2E;
+    }
+
+    section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 80px 32px 80px;
+    }
+
+    .about-container {
+      display: flex;
+      gap: 60px;
+      align-items: center;
+      justify-content: center;
+      max-width: 900px;
+      margin: auto;
+      flex-wrap: wrap;
+    }
+
+    .about-container img {
+      max-width: 320px;
+      width: 100%;
+      border-radius: 6px;
+    }
+
+    .about-text {
+      max-width: 420px;
+      font-size: 16px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .about-text p {
+      text-align: justify;
+      line-height: 1.8;
+      max-width: 700px;
+      hyphens: auto;
+    }
+
+    .subtitle {
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 80px 20px 60px;
+      }
+
+      .about-container {
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .about-text {
+        max-width: 320px;
+        text-align: center;
+      }
+
+      .nav-inner {
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
 
 
   <style>
