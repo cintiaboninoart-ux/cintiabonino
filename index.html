@@ -245,6 +245,7 @@ section {
 </div>
 
 <script>
+/* ---------- DATA ---------- */
 
 const projects = {
   newyorker: {
@@ -252,13 +253,11 @@ const projects = {
     description: "Ilustración editorial para artículo de revista. Un retrato visual sobre vulnerabilidad, cuerpo e identidad en la cultura contemporánea.",
     images: ["NEW YORKER PESO photo.png", "new yorker peso mock.png"]
   },
-
   ho: {
     title: "Does anyone really know you?",
     description: "Ilustración editorial para artículo de revista. Una exploración visual sobre intimidad, percepción y relaciones humanas.",
     images: ["ho know you photo.png", "ho know you photo mock.png"]
   },
-
   rata: {
     title: "What animals understand about death?",
     description: "Ilustración editorial para artículo de revista. Una aproximación poética y simbólica al vínculo entre naturaleza, instinto y muerte.",
@@ -266,10 +265,24 @@ const projects = {
   }
 };
 
+/* ---------- ORDEN AUTOMÁTICO ---------- */
+
+let projectOrder = [];
+let currentProjectIndex = 0;
+
+document.addEventListener("DOMContentLoaded", () => {
+  const items = document.querySelectorAll(".item");
+  projectOrder = Array.from(items).map(item => item.dataset.project);
+});
+
+/* ---------- MODAL ---------- */
+
 function openProject(name) {
   const modal = document.getElementById("modal");
   const content = document.getElementById("modal-content");
   const project = projects[name];
+
+  currentProjectIndex = projectOrder.indexOf(name);
 
   content.innerHTML = `
     <h2 class="project-title">${project.title}</h2>
@@ -289,25 +302,8 @@ function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
 
-<script>
-let projectOrder = [];
-let currentProjectIndex = 0;
+/* ---------- SWIPE / DRAG ---------- */
 
-// Detecta automáticamente el orden según la grilla
-document.addEventListener("DOMContentLoaded", () => {
-  const items = document.querySelectorAll(".item");
-  projectOrder = Array.from(items).map(item => item.dataset.project);
-});
-
-// Modificamos openProject para guardar índice
-const originalOpenProject = openProject;
-
-openProject = function(name) {
-  currentProjectIndex = projectOrder.indexOf(name);
-  originalOpenProject(name);
-};
-</script>
-<script>
 let startX = 0;
 let endX = 0;
 let isDragging = false;
@@ -339,15 +335,13 @@ modal.addEventListener("mouseup", e => {
 
 // Teclado
 document.addEventListener("keydown", e => {
-  if (document.getElementById("modal").style.display !== "block") return;
-
+  if (modal.style.display !== "block") return;
   if (e.key === "ArrowRight") nextProject();
   if (e.key === "ArrowLeft") prevProject();
 });
 
 function handleSwipe() {
   const diff = startX - endX;
-
   if (Math.abs(diff) > 60) {
     if (diff > 0) nextProject();
     else prevProject();
@@ -365,6 +359,7 @@ function prevProject() {
   openProject(projectOrder[currentProjectIndex]);
 }
 </script>
+
 
 </body>
 </html>
