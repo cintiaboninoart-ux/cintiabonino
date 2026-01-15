@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-   .name-title {
+  .name-title {
   font-family: Helvetica, Arial, sans-serif;
-  font-weight: 900;
-  letter-spacing: 2px;
+  font-weight: 300;      /* más liviana */
+  letter-spacing: 6px;  /* más aire */
   text-transform: uppercase;
 }
 
@@ -73,40 +73,41 @@
     }
 
     /* GRID */
-   .grid {
+  .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 
-    /* ITEM base (todas las portadas) */
+
 .item {
-  aspect-ratio: 1 / 1;
   position: relative;
   overflow: hidden;
   cursor: pointer;
   background: #f2f2f2;
   transition: transform 0.3s ease;
+  height: 350px;
 }
-    /* ITEM */
-/* Portada horizontal integrada sin romper la grilla */
+
 .item-horizontal {
   grid-column: span 2;
 }
 
-.item-horizontal img {
+.item img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
-    .item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+/* Solo Anna */
+.item-horizontal img {
+  object-fit: contain;
+  background: #f2f2f2;
+}
 
-    .item:hover {
-      transform: scale(1.02);
-    }
+.item:hover {
+  transform: scale(1.02);
+}
 
     /* OVERLAY */
     .overlay {
