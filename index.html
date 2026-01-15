@@ -76,35 +76,32 @@
     }
 
     /* GRID TIPO MASONRY */
- .grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 10px;
-  gap: 24px;
-}
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 10px;
+      gap: 24px;
+    }
 
-.item {
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  align-self: start;
-  transition: box-shadow 0.3s ease, filter 0.3s ease;
-}
+    .item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      align-self: start;
+      transition: box-shadow 0.3s ease, filter 0.3s ease;
+    }
 
-.item img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
+    .item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
 
-.item:hover {
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  filter: brightness(1.05);
-}
+    .item:hover {
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      filter: brightness(1.05);
+    }
 
-.item {
-  align-self: start;
-}
     /* OVERLAY */
     .overlay {
       position: absolute;
@@ -368,30 +365,12 @@ function resizeAllGridItems() {
 
   grid.querySelectorAll('.item').forEach(item => {
     const img = item.querySelector('img');
-    const rowSpan = Math.ceil((img.offsetHeight + rowGap) / (rowHeight + rowGap));
-    item.style.gridRowEnd = "span " + rowSpan;
-  });
-}
-
-window.addEventListener("load", resizeAllGridItems);
-window.addEventListener("resize", resizeAllGridItems);
-
-document.querySelectorAll('.item img').forEach(img => {
-  img.addEventListener('load', resizeAllGridItems);
-});
-function resizeAllGridItems() {
-  const grid = document.getElementById("grid");
-  const rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
-  const rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('gap'));
-
-  grid.querySelectorAll('.item').forEach(item => {
-    const img = item.querySelector('img');
 
     if (!img.complete) return;
 
     const imgRatio = img.naturalWidth / img.naturalHeight;
 
-    // Si es horizontal, ocupa 2 columnas
+    // Horizontales ocupan 2 columnas en desktop
     if (imgRatio > 1.3 && window.innerWidth > 768) {
       item.style.gridColumn = "span 2";
     } else {
@@ -402,9 +381,21 @@ function resizeAllGridItems() {
     item.style.gridRowEnd = "span " + rowSpan;
   });
 }
+
+
+/* ---------- EVENTOS ---------- */
+
+window.addEventListener("load", resizeAllGridItems);
+window.addEventListener("resize", resizeAllGridItems);
+
+document.querySelectorAll('.item img').forEach(img => {
+  img.addEventListener('load', resizeAllGridItems);
+});
+
 </script>
 
 </body>
 </html>
+
 
 
