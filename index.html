@@ -283,30 +283,47 @@ header p {
 <div id="modal" class="modal">
   <span class="close">&times;</span>
   <div class="modal-content" id="modal-content"></div>
-</div>
-<script>
+</div><script>
 const projects = {
-  newyorker: [
-    "NEW YORKER PESO photo.png",
-    "new yorker peso mock.png"
-  ],
-  ho: [
-    "ho know you photo.png",
-    "ho know you photo mock.png"
-  ],
-  rata: [
-    "rata photo.png",
-    "rata new yorker.png"
-  ]
+  newyorker: {
+    title: "Should you just give up?",
+    description: "Ilustración editorial para artículo de revista. Un retrato visual sobre vulnerabilidad, cuerpo e identidad en la cultura contemporánea.",
+    images: [
+      "NEW YORKER PESO photo.png",
+      "new yorker peso mock.png"
+    ]
+  },
+
+  ho: {
+    title: "Does anyone really know you?",
+    description: "Ilustración editorial para artículo de revista. Una exploración visual sobre intimidad, percepción y relaciones humanas.",
+    images: [
+      "ho know you photo.png",
+      "ho know you photo mock.png"
+    ]
+  },
+
+  rata: {
+    title: "What animals understand about death?",
+    description: "Ilustración editorial para artículo de revista. Una aproximación poética y simbólica al vínculo entre naturaleza, instinto y muerte.",
+    images: [
+      "rata photo.png",
+      "rata new yorker.png"
+    ]
+  }
 };
 
 function openProject(projectName) {
   const modal = document.getElementById("modal");
   const content = document.getElementById("modal-content");
+  const project = projects[projectName];
 
-  content.innerHTML = "";
+  content.innerHTML = `
+    <h2 class="project-title">${project.title}</h2>
+    <p class="project-description">${project.description}</p>
+  `;
 
-  projects[projectName].forEach(img => {
+  project.images.forEach(img => {
     const image = document.createElement("img");
     image.src = img;
     content.appendChild(image);
@@ -325,6 +342,7 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+</script>
 </script>
 </body>
 </html>
