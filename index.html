@@ -82,6 +82,7 @@ section {
   cursor: pointer;
   background: #f2f2f2;
   transition: transform 0.3s ease;
+  touch-action: manipulation;
 }
 
 .item img {
@@ -125,7 +126,6 @@ section {
   background: rgba(0,0,0,0.9);
   z-index: 2000;
   overflow-y: auto;
-  touch-action: pan-y;
 }
 
 .modal-content {
@@ -162,46 +162,28 @@ section {
   cursor: pointer;
 }
 
+/* Flechas */
+.nav-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 60px;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  z-index: 3000;
+  padding: 10px;
+  user-select: none;
+}
+
+.nav-arrow.left { left: 20px; }
+.nav-arrow.right { right: 20px; }
+
 /* MOBILE */
 @media (max-width: 768px) {
-  /* Animación suave entre proyectos */
-.modal-content {
-  transition: transform 0.35s ease, opacity 0.35s ease;
-  will-change: transform, opacity;
-}
-
-.modal-content.animating {
-  opacity: 0;
-  transform: translateX(40px);
-}
-
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
-  .overlay {
-    position: static;
-    background: none;
-    opacity: 1;
-  }
-
-  .overlay span {
-    color: #111;
-  }
-}
-.modal-content {
-  transition: transform 0.35s ease;
-  will-change: transform;
-}
-
-.modal-content.dragging {
-  transition: none;
-  cursor: grabbing;
-}
-
-.item {
-  touch-action: manipulation;
+  .grid { grid-template-columns: 1fr; }
+  .overlay { position: static; background: none; opacity: 1; }
+  .overlay span { color: #111; }
+  .nav-arrow { display: none; }
 }
 
 </style>
@@ -251,47 +233,12 @@ section {
 <!-- MODAL -->
 <div id="modal" class="modal">
   <span class="close" onclick="closeModal()">&times;</span>
-
   <div class="nav-arrow left" onclick="prevProject()">‹</div>
   <div class="nav-arrow right" onclick="nextProject()">›</div>
-
- <div class="modal-content" id="modal-content"></div>
-<div class="project-indicator" id="project-indicator"></div>
+  <div class="modal-content" id="modal-content"></div>
 </div>
 
 <script>
-/* Flechas navegación */
-.nav-arrow {
-  position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 60px;
-  color: rgba(255,255,255,0.5);
-  cursor: pointer;
-  z-index: 3000;
-  padding: 10px;
-  user-select: none;
-  transition: opacity 0.3s ease;
-}
-
-.nav-arrow:hover {
-  opacity: 1;
-}
-
-.nav-arrow.left {
-  left: 20px;
-}
-
-.nav-arrow.right {
-  right: 20px;
-}
-
-/* Ocultarlas en mobile (porque ya hay swipe) */
-@media (max-width: 768px) {
-  .nav-arrow {
-    display: none;
-  }
-}
 
 /* ---------- PROYECTOS ---------- */
 
@@ -353,91 +300,14 @@ function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
 
-/* ---------- DRAG REAL (SWIPE CON SEGUIMIENTO) ---------- */
-
-const modal = document.getElementById("modal");
-const modalContent = document.getElementById("modal-content");
-
-let startX = 0;
-let currentX = 0;
-let deltaX = 0;
-let hasMoved = false;
-
-const SWIPE_THRESHOLD = 120;
-const MOVE_THRESHOLD = 10;
-
-/* Touch start */
-modalContent.addEventListener("touchstart", (e) => {
-  if (modal.style.display === "none") return;
-
-  startX = e.touches[0].clientX;
-  currentX = startX;
-  deltaX = 0;
-  hasMoved = false;
-}, { passive: true });
-
-/* Touch move */
-modalContent.addEventListener("touchmove", (e) => {
-  currentX = e.touches[0].clientX;
-  deltaX = currentX - startX;
-
-  if (Math.abs(deltaX) > MOVE_THRESHOLD) {
-    hasMoved = true;
-    modalContent.classList.add("dragging");
-    modalContent.style.transform = `translateX(${deltaX}px)`;
-  }
-}, { passive: true });
-
-/* Touch end */
-modalContent.addEventListener("touchend", () => {
-  if (!hasMoved) return;
-
-  modalContent.classList.remove("dragging");
-
-  if (Math.abs(deltaX) > SWIPE_THRESHOLD) {
-    if (deltaX < 0) {
-      animateToNext();
-    } else {
-      animateToPrev();
-    }
-  } else {
-    modalContent.style.transition = "transform 0.35s ease";
-    modalContent.style.transform = "translateX(0)";
-  }
-});
-
-/* ---------- ANIMACIONES ---------- */
-
-function animateToNext() {
-  modalContent.style.transition = "transform 0.35s ease";
-  modalContent.style.transform = "translateX(-100%)";
-
-  setTimeout(() => {
-    nextProject();
-    modalContent.style.transition = "none";
-    modalContent.style.transform = "translateX(100%)";
-
-    requestAnimationFrame(() => {
-      modalContent.style.transition = "transform 0.35s ease";
-      modalContent.style.transform = "translateX(0)";
-    });
-  }, 300);
+function nextProject() {
+  currentProjectIndex = (currentProjectIndex + 1) % projects.length;
+  openProject(currentProjectIndex);
 }
 
-function animateToPrev() {
-  modalContent.style.transition = "transform 0.35s ease";
-  modalContent.style.transform = "translateX(100%)";
-
-  setTimeout(() => {
-    prevProject();
-    modalContent.style.transition = "none";
-    modalContent.style.transform = "translateX(-100%)";
-
-    requestAnimationFrame(() => {
-      modalContent.style.transition = "transform 0.35s ease";
-      modalContent.style.transform = "translateX(0)";
-    });
-  }, 300);
+function prevProject() {
+  currentProjectIndex = (currentProjectIndex - 1 + projects.length) % projects.length;
+  openProject(currentProjectIndex);
 }
 
 </script>
