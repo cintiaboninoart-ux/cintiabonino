@@ -239,7 +239,27 @@ button {
 
 /* MOBILE */
 @media (max-width: 768px) {
+ .overlay {
+    position: static;
+    background: none;
+    opacity: 1;
+    display: block;
+    padding: 10px 0 0;
+  }
 
+  .overlay span {
+    color: #111;
+    font-size: 16px;
+    padding: 0;
+  }
+
+  .item {
+    display: flex;
+    flex-direction: column;
+  }
+}
+Resultado en móvil
+Ahora se ve así:
   .nav-inner {
     gap: 16px;
   }
