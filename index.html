@@ -58,7 +58,6 @@ header h1 {
 .subtitle {
   color: #666;
   margin-top: 12px;
-  text-align: center;
 }
 
 /* SECTION */
@@ -68,14 +67,14 @@ section {
   padding: 40px 24px 80px;
 }
 
-/* GRID — 3 POR FILA */
+/* GRID */
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* tres por fila */
-  gap: 24px; /* márgenes más estrechos */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
 }
 
-/* ITEM CUADRADO */
+/* ITEM */
 .item {
   aspect-ratio: 1 / 1;
   position: relative;
@@ -91,7 +90,6 @@ section {
   object-fit: cover;
 }
 
-/* HOVER */
 .item:hover {
   transform: scale(1.02);
 }
@@ -113,7 +111,6 @@ section {
   font-size: 18px;
   text-align: center;
   padding: 20px;
-  line-height: 1.4;
 }
 
 .item:hover .overlay {
@@ -128,6 +125,7 @@ section {
   background: rgba(0,0,0,0.9);
   z-index: 2000;
   overflow-y: auto;
+  touch-action: pan-y;
 }
 
 .modal-content {
@@ -166,22 +164,8 @@ section {
 
 /* MOBILE */
 @media (max-width: 768px) {
-.modal {
-  touch-action: pan-y; /* permite scroll vertical y captura swipe horizontal */
-}
-
-  .nav-inner {
-    justify-content: center;
-    padding: 16px 12px;
-    gap: 16px;
-  }
-
-  header {
-    padding-top: 180px;
-  }
-
   .grid {
-    grid-template-columns: 1fr; /* una por fila */
+    grid-template-columns: 1fr;
     gap: 28px;
   }
 
@@ -193,7 +177,6 @@ section {
 
   .overlay span {
     color: #111;
-    font-size: 16px;
   }
 }
 
@@ -223,17 +206,17 @@ section {
 <section>
   <div class="grid">
 
-    <div class="item" onclick="openProject('newyorker')">
+    <div class="item" onclick="openProject(0)">
       <img src="NEW YORKER PESO photo.png">
       <div class="overlay"><span>Should you just give up?</span></div>
     </div>
 
-    <div class="item" onclick="openProject('ho')">
+    <div class="item" onclick="openProject(1)">
       <img src="ho know you photo.png">
       <div class="overlay"><span>Does anyone really know you?</span></div>
     </div>
 
-    <div class="item" onclick="openProject('rata')">
+    <div class="item" onclick="openProject(2)">
       <img src="rata photo.png">
       <div class="overlay"><span>What animals understand about death?</span></div>
     </div>
@@ -248,10 +231,11 @@ section {
 </div>
 
 <script>
+
 /* ---------- PROYECTOS ---------- */
 
-const projects = {
-  newyorker: {
+const projects = [
+  {
     title: "Should you just give up?",
     description: "Ilustración editorial para artículo de revista. Un retrato visual sobre vulnerabilidad, cuerpo e identidad en la cultura contemporánea.",
     images: [
@@ -259,8 +243,7 @@ const projects = {
       "new yorker peso mock.png"
     ]
   },
-
-  ho: {
+  {
     title: "Does anyone really know you?",
     description: "Ilustración editorial para artículo de revista. Una exploración visual sobre intimidad, percepción y relaciones humanas.",
     images: [
@@ -268,8 +251,7 @@ const projects = {
       "ho know you photo mock.png"
     ]
   },
-
-  rata: {
+  {
     title: "What animals understand about death?",
     description: "Ilustración editorial para artículo de revista. Una aproximación poética y simbólica al vínculo entre naturaleza, instinto y muerte.",
     images: [
@@ -277,16 +259,20 @@ const projects = {
       "rata new yorker.png"
     ]
   }
-};
+];
+
+let currentProjectIndex = 0;
 
 /* ---------- MODAL ---------- */
 
-function openProject(name) {
+function openProject(index) {
   const modal = document.getElementById("modal");
   const content = document.getElementById("modal-content");
-  const project = projects[name];
+  const project = projects[index];
 
   if (!project) return;
+
+  currentProjectIndex = index;
 
   content.innerHTML = `
     <h2 class="project-title">${project.title}</h2>
@@ -306,77 +292,10 @@ function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
 
-/* ---------- PROYECTOS (como ya los tenés) ---------- */
-/* ... tu objeto projects y funciones openProject/closeModal ... */
-
-/* ---------- ORDEN AUTOMÁTICO (opcional pero recomendado) ---------- */
-let projectOrder = [];
-let currentProjectIndex = 0;
-
-document.addEventListener("DOMContentLoaded", () => {
-  const items = document.querySelectorAll(".item[data-project]");
-  projectOrder = Array.from(items).map(item => item.dataset.project);
-});
-
-/* ---------- SWIPE (MÓVIL) ---------- */
-let startX = 0;
-let startY = 0;
-
-const modalEl = document.getElementById("modal");
-const modalContentEl = document.getElementById("modal-content");
-
-// Escuchamos sobre el contenido (donde tocás realmente)
-modalContentEl.addEventListener("touchstart", (e) => {
-  const t = e.touches[0];
-  startX = t.clientX;
-  startY = t.clientY;
-}, { passive: true });
-
-modalContentEl.addEventListener("touchend", (e) => {
-  const t = e.changedTouches[0];
-  const endX = t.clientX;
-  const endY = t.clientY;
-
-  const diffX = startX - endX;
-  const diffY = startY - endY;
-
-  // Solo si es más horizontal que vertical y suficientemente largo
-  if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 60) {
-    if (diffX > 0) {
-      nextProject();   // swipe izquierda
-    } else {
-      prevProject();   // swipe derecha
-    }
-  }
-}, { passive: true });
-
-/* ---------- NAVEGACIÓN ---------- */
-function nextProject() {
-  if (!projectOrder.length) return;
-  currentProjectIndex = (currentProjectIndex + 1) % projectOrder.length;
-  openProject(projectOrder[currentProjectIndex]);
-}
-
-function prevProject() {
-  if (!projectOrder.length) return;
-  currentProjectIndex =
-    (currentProjectIndex - 1 + projectOrder.length) % projectOrder.length;
-  openProject(projectOrder[currentProjectIndex]);
-}
-
-/* ---------- IMPORTANTE: actualizamos el índice al abrir ---------- */
-const _openProject = openProject;
-openProject = function(name) {
-  currentProjectIndex = projectOrder.indexOf(name);
-  _openProject(name);
-};
-
 /* ---------- SWIPE ---------- */
 
 let startX = 0;
 let startY = 0;
-let endX = 0;
-let endY = 0;
 
 const modal = document.getElementById("modal");
 
@@ -388,12 +307,9 @@ modal.addEventListener("touchstart", function(e) {
 
 modal.addEventListener("touchend", function(e) {
   const touch = e.changedTouches[0];
-  endX = touch.clientX;
-  endY = touch.clientY;
-  handleSwipe();
-}, { passive: true });
+  const endX = touch.clientX;
+  const endY = touch.clientY;
 
-function handleSwipe() {
   const diffX = startX - endX;
   const diffY = startY - endY;
 
@@ -404,9 +320,19 @@ function handleSwipe() {
       prevProject();
     }
   }
-}
-</script>
+}, { passive: true });
 
+function nextProject() {
+  currentProjectIndex = (currentProjectIndex + 1) % projects.length;
+  openProject(currentProjectIndex);
+}
+
+function prevProject() {
+  currentProjectIndex = (currentProjectIndex - 1 + projects.length) % projects.length;
+  openProject(currentProjectIndex);
+}
+
+</script>
 
 </body>
 </html>
