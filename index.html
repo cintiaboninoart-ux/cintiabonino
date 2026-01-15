@@ -89,13 +89,14 @@
   transition: transform 0.3s ease;
 }
     /* ITEM */
-   /* Portada horizontal */
-/* Portada horizontal integrada en la grilla */
+/* Portada horizontal (integrada sin romper la grilla) */
 .item-horizontal {
-  grid-column: span 2;      /* ocupa dos columnas */
-  aspect-ratio: 2 / 1;     /* formato horizontal */
+  grid-column: span 2;     /* ocupa dos columnas */
 }
 
+.item-horizontal img {
+  object-fit: cover;
+}
 
     .item img {
       width: 100%;
