@@ -185,6 +185,16 @@ section {
   .overlay span { color: #111; }
   .nav-arrow { display: none; }
 }
+/* Drag real con seguimiento */
+.modal-content {
+  transition: transform 0.35s ease;
+  will-change: transform;
+}
+
+.modal-content.dragging {
+  transition: none;
+  cursor: grabbing;
+}
 
 </style>
 </head>
@@ -308,6 +318,92 @@ function nextProject() {
 function prevProject() {
   currentProjectIndex = (currentProjectIndex - 1 + projects.length) % projects.length;
   openProject(currentProjectIndex);
+}
+/* ---------- DRAG REAL (SWIPE CON SEGUIMIENTO SUAVE) ---------- */
+
+const modalEl = document.getElementById("modal");
+const modalContentEl = document.getElementById("modal-content");
+
+let startX = 0;
+let currentX = 0;
+let deltaX = 0;
+let hasMoved = false;
+
+const SWIPE_THRESHOLD = 120;
+const MOVE_THRESHOLD = 10;
+
+/* Touch start */
+modalContentEl.addEventListener("touchstart", (e) => {
+  if (modalEl.style.display === "none") return;
+
+  startX = e.touches[0].clientX;
+  currentX = startX;
+  deltaX = 0;
+  hasMoved = false;
+}, { passive: true });
+
+/* Touch move */
+modalContentEl.addEventListener("touchmove", (e) => {
+  currentX = e.touches[0].clientX;
+  deltaX = currentX - startX;
+
+  if (Math.abs(deltaX) > MOVE_THRESHOLD) {
+    hasMoved = true;
+    modalContentEl.classList.add("dragging");
+    modalContentEl.style.transform = `translateX(${deltaX}px)`;
+  }
+}, { passive: true });
+
+/* Touch end */
+modalContentEl.addEventListener("touchend", () => {
+  if (!hasMoved) return;
+
+  modalContentEl.classList.remove("dragging");
+
+  if (Math.abs(deltaX) > SWIPE_THRESHOLD) {
+    if (deltaX < 0) {
+      animateToNext();
+    } else {
+      animateToPrev();
+    }
+  } else {
+    modalContentEl.style.transition = "transform 0.35s ease";
+    modalContentEl.style.transform = "translateX(0)";
+  }
+});
+
+/* ---------- ANIMACIONES ---------- */
+
+function animateToNext() {
+  modalContentEl.style.transition = "transform 0.35s ease";
+  modalContentEl.style.transform = "translateX(-100%)";
+
+  setTimeout(() => {
+    nextProject();
+    modalContentEl.style.transition = "none";
+    modalContentEl.style.transform = "translateX(100%)";
+
+    requestAnimationFrame(() => {
+      modalContentEl.style.transition = "transform 0.35s ease";
+      modalContentEl.style.transform = "translateX(0)";
+    });
+  }, 300);
+}
+
+function animateToPrev() {
+  modalContentEl.style.transition = "transform 0.35s ease";
+  modalContentEl.style.transform = "translateX(100%)";
+
+  setTimeout(() => {
+    prevProject();
+    modalContentEl.style.transition = "none";
+    modalContentEl.style.transform = "translateX(-100%)";
+
+    requestAnimationFrame(() => {
+      modalContentEl.style.transition = "transform 0.35s ease";
+      modalContentEl.style.transform = "translateX(0)";
+    });
+  }, 300);
 }
 
 </script>
