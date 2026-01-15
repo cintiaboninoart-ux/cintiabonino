@@ -96,10 +96,17 @@
       display: block;
     }
 
-    .item:hover {
-      transform: scale(1.02);
-    }
+    .item {
+  transition: box-shadow 0.3s ease, filter 0.3s ease;
+}
 
+.item:hover {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  filter: brightness(1.05);
+}
+.item {
+  align-self: start;
+}
     /* OVERLAY */
     .overlay {
       position: absolute;
