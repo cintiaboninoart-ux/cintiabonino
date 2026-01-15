@@ -315,6 +315,7 @@ header {
   <div class="grid">
 
   <div class="item" onclick="openProject('newyorker')">
+  <div class="item" data-project="newyorker" onclick="openProject('newyorker')">
   <img src="NEW YORKER PESO photo.png" alt="New Yorker">
   <div class="overlay">
     <span>Should you just give up?</span>
@@ -322,6 +323,7 @@ header {
 </div>
 
   <div class="item" onclick="openProject('ho')">
+  <div class="item" data-project="ho" onclick="openProject('ho')">
   <img src="ho know you photo.png" alt="Ho Know You">
   <div class="overlay">
     <span>Does anyone really know you?</span>
@@ -329,6 +331,7 @@ header {
 </div>
 
 <div class="item" onclick="openProject('rata')">
+<div class="item" data-project="rata" onclick="openProject('rata')">
   <img src="rata photo.png" alt="Rata">
   <div class="overlay">
     <span>What animals understand about death?</span>
@@ -340,7 +343,16 @@ header {
 <div id="modal" class="modal">
   <span class="close">&times;</span>
   <div class="modal-content" id="modal-content"></div>
-</div><script>
+</div>
+  <script>
+let projectOrder = [];
+let currentProjectIndex = 0;
+
+document.addEventListener("DOMContentLoaded", () => {
+  const items = document.querySelectorAll(".item");
+  projectOrder = Array.from(items).map(item => item.dataset.project);
+});
+  <script>
 const projects = {
   newyorker: {
     title: "Should you just give up?",
