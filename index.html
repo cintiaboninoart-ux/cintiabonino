@@ -195,6 +195,36 @@ section {
   transition: none;
   cursor: grabbing;
 }
+/* Indicador swipe */
+.swipe-indicator {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.5;
+  pointer-events: none;
+  animation: swipePulse 3s ease infinite;
+}
+
+.swipe-indicator span {
+  color: white;
+  font-size: 18px;
+}
+
+.swipe-indicator .line {
+  width: 40px;
+  height: 1px;
+  background: rgba(255,255,255,0.6);
+}
+
+@keyframes swipePulse {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+  100% { opacity: 0.3; }
+}
 
 </style>
 </head>
@@ -246,6 +276,10 @@ section {
   <div class="nav-arrow left" onclick="prevProject()">‹</div>
   <div class="nav-arrow right" onclick="nextProject()">›</div>
   <div class="modal-content" id="modal-content"></div>
+  <div class="swipe-indicator">
+  <span>‹</span>
+  <span class="line"></span>
+  <span>›</span>
 </div>
 
 <script>
@@ -329,7 +363,7 @@ let currentX = 0;
 let deltaX = 0;
 let hasMoved = false;
 
-const SWIPE_THRESHOLD = 120;
+const SWIPE_THRESHOLD = 160;
 const MOVE_THRESHOLD = 10;
 
 /* Touch start */
@@ -350,7 +384,10 @@ modalContentEl.addEventListener("touchmove", (e) => {
   if (Math.abs(deltaX) > MOVE_THRESHOLD) {
     hasMoved = true;
     modalContentEl.classList.add("dragging");
-    modalContentEl.style.transform = `translateX(${deltaX}px)`;
+
+    // resistencia: se mueve más lento que el dedo
+    const resistance = deltaX * 0.4;
+    modalContentEl.style.transform = `translateX(${resistance}px)`;
   }
 }, { passive: true });
 
@@ -376,7 +413,7 @@ modalContentEl.addEventListener("touchend", () => {
 
 function animateToNext() {
   modalContentEl.style.transition = "transform 0.35s ease";
-  modalContentEl.style.transform = "translateX(-100%)";
+  modalContentEl.style.transform = "translateX(-60%)";
 
   setTimeout(() => {
     nextProject();
@@ -392,7 +429,7 @@ function animateToNext() {
 
 function animateToPrev() {
   modalContentEl.style.transition = "transform 0.35s ease";
-  modalContentEl.style.transform = "translateX(100%)";
+ modalContentEl.style.transform = "translateX(-60%)";
 
   setTimeout(() => {
     prevProject();
