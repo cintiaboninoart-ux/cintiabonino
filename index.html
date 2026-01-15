@@ -195,41 +195,42 @@
     @media (max-width: 768px) {
       header { padding-top: 170px; }
 
-      .grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 1fr;   /* filas reales */
-  gap: 24px;
+      @media (max-width: 768px) {
+  header { padding-top: 170px; }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .overlay {
+    position: static;
+    background: none;
+    opacity: 1;
+  }
+
+  .overlay span {
+    color: #111;
+    font-size: 15px;
+  }
+
+  .nav-arrow {
+    display: none;
+  }
+
+  .modal-content {
+    margin: 70px auto 50px;
+    padding: 16px;
+  }
+
+  .project-title {
+    font-size: 22px;
+  }
+
+  .project-description {
+    font-size: 14px;
+  }
 }
-
-      .overlay {
-        position: static;
-        background: none;
-        opacity: 1;
-      }
-
-      .overlay span {
-        color: #111;
-        font-size: 15px;
-      }
-
-      .nav-arrow {
-        display: none;
-      }
-
-      .modal-content {
-        margin: 70px auto 50px;
-        padding: 16px;
-      }
-
-      .project-title {
-        font-size: 22px;
-      }
-
-      .project-description {
-        font-size: 14px;
-      }
-    }
 
   </style>
 </head>
