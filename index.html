@@ -33,6 +33,7 @@ body {
   display: flex;
   justify-content: center;
   gap: 28px;
+  flex-wrap: wrap;
 }
 
 .nav-inner a {
@@ -57,6 +58,7 @@ header h1 {
 .subtitle {
   color: #666;
   margin-top: 12px;
+  text-align: center;
 }
 
 /* SECTION */
@@ -66,25 +68,32 @@ section {
   padding: 40px 24px 80px;
 }
 
-/* GRID CUADRADO */
+/* GRID — 3 POR FILA */
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 40px;
+  grid-template-columns: repeat(3, 1fr); /* tres por fila */
+  gap: 24px; /* márgenes más estrechos */
 }
 
-/* ITEM */
+/* ITEM CUADRADO */
 .item {
   aspect-ratio: 1 / 1;
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  background: #f2f2f2;
+  transition: transform 0.3s ease;
 }
 
 .item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* HOVER */
+.item:hover {
+  transform: scale(1.02);
 }
 
 /* OVERLAY */
@@ -96,14 +105,15 @@ section {
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: 0.3s;
+  transition: opacity 0.3s ease;
 }
 
 .overlay span {
   color: white;
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
   padding: 20px;
+  line-height: 1.4;
 }
 
 .item:hover .overlay {
@@ -132,6 +142,19 @@ section {
   margin-bottom: 30px;
 }
 
+.project-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.project-description {
+  max-width: 700px;
+  margin: 0 auto 50px;
+  text-align: justify;
+  line-height: 1.7;
+}
+
 .close {
   position: fixed;
   top: 20px;
@@ -150,13 +173,13 @@ section {
     gap: 16px;
   }
 
-}
   header {
     padding-top: 180px;
   }
 
   .grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* una por fila */
+    gap: 28px;
   }
 
   .overlay {
@@ -169,7 +192,6 @@ section {
     color: #111;
     font-size: 16px;
   }
-
 }
 
 </style>
@@ -223,32 +245,24 @@ section {
 </div>
 
 <script>
+
 const projects = {
   newyorker: {
     title: "Should you just give up?",
     description: "Ilustración editorial para artículo de revista. Un retrato visual sobre vulnerabilidad, cuerpo e identidad en la cultura contemporánea.",
-    images: [
-      "NEW YORKER PESO photo.png",
-      "new yorker peso mock.png"
-    ]
+    images: ["NEW YORKER PESO photo.png", "new yorker peso mock.png"]
   },
 
   ho: {
     title: "Does anyone really know you?",
     description: "Ilustración editorial para artículo de revista. Una exploración visual sobre intimidad, percepción y relaciones humanas.",
-    images: [
-      "ho know you photo.png",
-      "ho know you photo mock.png"
-    ]
+    images: ["ho know you photo.png", "ho know you photo mock.png"]
   },
 
   rata: {
     title: "What animals understand about death?",
     description: "Ilustración editorial para artículo de revista. Una aproximación poética y simbólica al vínculo entre naturaleza, instinto y muerte.",
-    images: [
-      "rata photo.png",
-      "rata new yorker.png"
-    ]
+    images: ["rata photo.png", "rata new yorker.png"]
   }
 };
 
@@ -274,8 +288,8 @@ function openProject(name) {
 function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
-</script>
 
+</script>
 
 </body>
 </html>
