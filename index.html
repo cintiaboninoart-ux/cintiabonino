@@ -146,10 +146,11 @@ section {
 
   .nav-inner {
     justify-content: center;
-    padding: 16px 10px;
+    padding: 16px 12px;
     gap: 16px;
   }
 
+}
   header {
     padding-top: 180px;
   }
@@ -222,22 +223,32 @@ section {
 </div>
 
 <script>
-
 const projects = {
   newyorker: {
     title: "Should you just give up?",
-    description: "Ilustración editorial para artículo de revista.",
-    images: ["NEW YORKER PESO photo.png", "new yorker peso mock.png"]
+    description: "Ilustración editorial para artículo de revista. Un retrato visual sobre vulnerabilidad, cuerpo e identidad en la cultura contemporánea.",
+    images: [
+      "NEW YORKER PESO photo.png",
+      "new yorker peso mock.png"
+    ]
   },
+
   ho: {
     title: "Does anyone really know you?",
-    description: "Ilustración editorial para artículo de revista.",
-    images: ["ho know you photo.png", "ho know you photo mock.png"]
+    description: "Ilustración editorial para artículo de revista. Una exploración visual sobre intimidad, percepción y relaciones humanas.",
+    images: [
+      "ho know you photo.png",
+      "ho know you photo mock.png"
+    ]
   },
+
   rata: {
     title: "What animals understand about death?",
-    description: "Ilustración editorial para artículo de revista.",
-    images: ["rata photo.png", "rata new yorker.png"]
+    description: "Ilustración editorial para artículo de revista. Una aproximación poética y simbólica al vínculo entre naturaleza, instinto y muerte.",
+    images: [
+      "rata photo.png",
+      "rata new yorker.png"
+    ]
   }
 };
 
@@ -247,8 +258,8 @@ function openProject(name) {
   const project = projects[name];
 
   content.innerHTML = `
-    <h2>${project.title}</h2>
-    <p>${project.description}</p>
+    <h2 class="project-title">${project.title}</h2>
+    <p class="project-description">${project.description}</p>
   `;
 
   project.images.forEach(src => {
@@ -263,8 +274,8 @@ function openProject(name) {
 function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
-
 </script>
+
 
 </body>
 </html>
