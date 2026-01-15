@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title>Cintia Bonino — Selección de trabajo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
- <style>
-/* RESET GENERAL */
+<style>
+
+/* RESET */
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
   background: #ffffff;
   color: #111111;
-  line-height: 1.6;
 }
 
-/* MENÚ */
+/* NAV */
 .nav {
   position: fixed;
   top: 0;
@@ -28,108 +29,95 @@ body {
 .nav-inner {
   max-width: 1100px;
   margin: auto;
-  padding: 20px 24px;
+  padding: 20px;
   display: flex;
   justify-content: center;
   gap: 28px;
-  flex-wrap: wrap;
 }
 
 .nav-inner a {
   text-decoration: none;
   color: #111;
   font-size: 15px;
-  font-weight: 500;
-  padding-bottom: 4px;
-}
-
-.nav-inner a:hover {
-  border-bottom: 2px solid #9CFF2E;
 }
 
 /* HEADER */
 header {
   max-width: 1100px;
   margin: auto;
-  padding: 120px 24px 40px;
+  padding: 140px 24px 40px;
   text-align: center;
 }
 
 header h1 {
-  font-size: 36px;
-  font-weight: 700;
   margin: 0;
+  font-size: 36px;
 }
 
-header p {
-  font-size: 16px;
-  margin-top: 12px;
-  color: #666;
-  text-align: center;
-}
-
-/* SUBTÍTULO */
 .subtitle {
-  text-align: center;
-  margin-top: 0;
-  margin-bottom: 8px;
   color: #666;
+  margin-top: 12px;
 }
 
-/* CONTENIDO */
+/* SECTION */
 section {
   max-width: 1100px;
   margin: auto;
-  padding: 40px 32px 80px;
-  box-sizing: border-box;
+  padding: 40px 24px 80px;
 }
 
-/* GRID GALERÍA */
+/* GRID CUADRADO */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 40px;
-  margin-top: 8px;
 }
 
-/* TARJETAS */
+/* ITEM */
 .item {
-  height: 420px;
-  background: #f2f2f2;
+  aspect-ratio: 1 / 1;
+  position: relative;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-/* IMÁGENES */
 .item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
 }
 
-/* HOVER */
-.item:hover {
-  transform: scale(1.03);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+/* OVERLAY */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: 0.3s;
 }
 
-.item:hover img {
-  transform: scale(1.08);
+.overlay span {
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  padding: 20px;
+}
+
+.item:hover .overlay {
+  opacity: 1;
 }
 
 /* MODAL */
 .modal {
   display: none;
   position: fixed;
-  z-index: 2000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: rgba(0,0,0,0.9);
-  overflow: auto;
+  z-index: 2000;
+  overflow-y: auto;
 }
 
 .modal-content {
@@ -142,22 +130,6 @@ section {
 .modal-content img {
   width: 100%;
   margin-bottom: 30px;
-  display: block;
-}
-
-.project-title {
-  text-align: center;
-  font-size: 28px;
-  margin-bottom: 12px;
-  color: white;
-}
-
-.project-description {
-  max-width: 700px;
-  margin: 0 auto 50px;
-  text-align: justify;
-  line-height: 1.7;
-  color: white;
 }
 
 .close {
@@ -169,137 +141,33 @@ section {
   cursor: pointer;
 }
 
-/* CONTACTO */
-.contact-container {
-  max-width: 600px;
-  margin: auto;
-  text-align: center;
-}
-
-.contact-container h2 {
-  font-size: 28px;
-  margin-bottom: 30px;
-  border-bottom: 4px solid #9CFF2E;
-  display: inline-block;
-  padding-bottom: 6px;
-}
-
-.contact-container p {
-  margin-bottom: 40px;
-}
-
-form {
-  width: 100%;
-}
-
-input, textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  margin-bottom: 15px;
-  font-size: 14px;
-  box-sizing: border-box;
-}
-
-button {
-  padding: 12px 30px;
-  background: #9CFF2E;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-}
-/* OVERLAY TITULO */
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-}
-
-.overlay span {
-  color: white;
-  font-size: 20px;
-  font-weight: 500;
-  text-align: center;
-  padding: 20px;
-  line-height: 1.4;
-}
-
-.item {
-  position: relative;
-}
-
-.item:hover .overlay {
-  opacity: 1;
-}
-
 /* MOBILE */
 @media (max-width: 768px) {
- .overlay {
+
+  header {
+    padding-top: 180px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .overlay {
     position: static;
     background: none;
     opacity: 1;
-    display: block;
-    padding: 10px 0 0;
   }
 
   .overlay span {
     color: #111;
     font-size: 16px;
-    padding: 0;
-  }
-
-  .item {
-    display: flex;
-    flex-direction: column;
   }
 }
-Resultado en móvil
-Ahora se ve así:
-  .nav-inner {
-    gap: 16px;
-  }
 
-  section {
-    padding: 24px 20px 60px;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
-  .item {
-    height: 300px;
-  }
-header {
-    padding: 180px 20px 30px;
-  }
-
-}
-
-}
 </style>
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>...</title>
+</head>
 
 <body>
-
-<header>
-  <h1>Cintia Bonino</h1>
-  <p class="subtitle">
-  Ilustración editorial y comercial<br>
-  Dirección de arte
-</p>
-
-</header>
 
 <nav class="nav">
   <div class="nav-inner">
@@ -311,111 +179,85 @@ header {
   </div>
 </nav>
 
+<header>
+  <h1>Cintia Bonino</h1>
+  <p class="subtitle">
+    Ilustración editorial y comercial<br>
+    Dirección de arte
+  </p>
+</header>
+
 <section>
   <div class="grid">
 
-  <div class="item" onclick="openProject('newyorker')">
-  <div class="item" data-project="newyorker" onclick="openProject('newyorker')">
-  <img src="NEW YORKER PESO photo.png" alt="New Yorker">
-  <div class="overlay">
-    <span>Should you just give up?</span>
-  </div>
-</div>
+    <div class="item" onclick="openProject('newyorker')">
+      <img src="NEW YORKER PESO photo.png">
+      <div class="overlay"><span>Should you just give up?</span></div>
+    </div>
 
-  <div class="item" onclick="openProject('ho')">
-  <div class="item" data-project="ho" onclick="openProject('ho')">
-  <img src="ho know you photo.png" alt="Ho Know You">
-  <div class="overlay">
-    <span>Does anyone really know you?</span>
-  </div>
-</div>
+    <div class="item" onclick="openProject('ho')">
+      <img src="ho know you photo.png">
+      <div class="overlay"><span>Does anyone really know you?</span></div>
+    </div>
 
-<div class="item" onclick="openProject('rata')">
-<div class="item" data-project="rata" onclick="openProject('rata')">
-  <img src="rata photo.png" alt="Rata">
-  <div class="overlay">
-    <span>What animals understand about death?</span>
-  </div>
-</div>
+    <div class="item" onclick="openProject('rata')">
+      <img src="rata photo.png">
+      <div class="overlay"><span>What animals understand about death?</span></div>
+    </div>
 
+  </div>
 </section>
-<!-- MODAL GALERÍA -->
+
+<!-- MODAL -->
 <div id="modal" class="modal">
-  <span class="close">&times;</span>
+  <span class="close" onclick="closeModal()">&times;</span>
   <div class="modal-content" id="modal-content"></div>
 </div>
-  <script>
-let projectOrder = [];
-let currentProjectIndex = 0;
 
-document.addEventListener("DOMContentLoaded", () => {
-  const items = document.querySelectorAll(".item");
-  projectOrder = Array.from(items).map(item => item.dataset.project);
-});
-  <script>
+<script>
+
 const projects = {
   newyorker: {
     title: "Should you just give up?",
-    description: "Ilustración editorial para artículo de revista. Un retrato visual sobre vulnerabilidad, cuerpo e identidad en la cultura contemporánea.",
-    images: [
-      "NEW YORKER PESO photo.png",
-      "new yorker peso mock.png"
-    ]
+    description: "Ilustración editorial para artículo de revista.",
+    images: ["NEW YORKER PESO photo.png", "new yorker peso mock.png"]
   },
-
   ho: {
     title: "Does anyone really know you?",
-    description: "Ilustración editorial para artículo de revista. Una exploración visual sobre intimidad, percepción y relaciones humanas.",
-    images: [
-      "ho know you photo.png",
-      "ho know you photo mock.png"
-    ]
+    description: "Ilustración editorial para artículo de revista.",
+    images: ["ho know you photo.png", "ho know you photo mock.png"]
   },
-
   rata: {
     title: "What animals understand about death?",
-    description: "Ilustración editorial para artículo de revista. Una aproximación poética y simbólica al vínculo entre naturaleza, instinto y muerte.",
-    images: [
-      "rata photo.png",
-      "rata new yorker.png"
-    ]
+    description: "Ilustración editorial para artículo de revista.",
+    images: ["rata photo.png", "rata new yorker.png"]
   }
 };
 
-function openProject(projectName) {
+function openProject(name) {
   const modal = document.getElementById("modal");
   const content = document.getElementById("modal-content");
-  const project = projects[projectName];
+  const project = projects[name];
 
   content.innerHTML = `
-    <h2 class="project-title">${project.title}</h2>
-    <p class="project-description">${project.description}</p>
+    <h2>${project.title}</h2>
+    <p>${project.description}</p>
   `;
 
-  project.images.forEach(img => {
-    const image = document.createElement("img");
-    image.src = img;
-    content.appendChild(image);
+  project.images.forEach(src => {
+    const img = document.createElement("img");
+    img.src = src;
+    content.appendChild(img);
   });
 
   modal.style.display = "block";
 }
 
-document.querySelector(".close").onclick = function() {
+function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
 
-window.onclick = function(event) {
-  const modal = document.getElementById("modal");
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
 </script>
-</script>
-</body>
-</html>
 
-</script>
 </body>
 </html>
