@@ -100,16 +100,18 @@
       transform: scale(1.02);
     }
 
-    /* Portada con proporción original */
-    .item-original {
-      aspect-ratio: auto;
-      height: auto;
-    }
+   /* Portada con tamaño real */
+.item-original {
+  aspect-ratio: unset;      /* elimina el cuadrado */
+  height: auto;
+  grid-row: span 2;         /* ocupa más alto en la grilla */
+}
 
-    .item-original img {
-      height: auto;
-      object-fit: contain;
-    }
+.item-original img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
 
     /* OVERLAY */
     .overlay {
@@ -281,10 +283,9 @@
 
     <!-- Los mundos de Anna -->
     <div class="item item-original" onclick="openProject(4)">
-      <img src="anna.png" alt="">
-      <div class="overlay"><span>Los mundos de Anna</span></div>
-    </div>
-
+  <img src="anna.png" alt="">
+  <div class="overlay"><span>Los mundos de Anna</span></div>
+</div>
   </div>
 </section>
 
