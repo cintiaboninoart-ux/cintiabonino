@@ -250,11 +250,9 @@
 
 <section>
   <div class="masonry" id="masonry">
-
     <div class="column"></div>
     <div class="column"></div>
     <div class="column"></div>
-
   </div>
 </section>
 
@@ -302,22 +300,10 @@ const projects = [
     images: ["libro anna.png", "ANNA MOCK INTERN.png"]
   },
   {
-    title: "Vértigo",
-    description: "Portada, guarda e ilustraciones interiores para el libro \"Vertigo\" de Rigoberta Bandini.",
-    cover: "vertigo tapa.png",
-    images: [
-      "vertigo tapa mock.png",
-      "guarda vertigo mock.png",
-      "vertigo int mock copia.png"
-    ]
-  },
-  {
     title: "Café para uno",
     description: "Ilustración para artículo de Revista La Mirada (sección Sociedad y Cultura).",
     cover: "insta-revista-la-mirada.png",
-    images: [
-      "sin-fondo-open-magazine.png"
-    ]
+    images: ["sin-fondo-open-magazine.png"]
   }
 ];
 
@@ -330,7 +316,6 @@ function createMasonry() {
   const masonry = document.getElementById("masonry");
   const columns = masonry.querySelectorAll(".column");
 
-  // limpiar columnas
   columns.forEach(col => col.innerHTML = "");
 
   projects.forEach((project, index) => {
@@ -348,7 +333,6 @@ function createMasonry() {
     item.appendChild(img);
     item.appendChild(overlay);
 
-    // insertar en la columna más corta
     const shortestColumn = getShortestColumn(columns);
     shortestColumn.appendChild(item);
   });
@@ -356,13 +340,11 @@ function createMasonry() {
 
 function getShortestColumn(columns) {
   let shortest = columns[0];
-
   columns.forEach(col => {
     if (col.scrollHeight < shortest.scrollHeight) {
       shortest = col;
     }
   });
-
   return shortest;
 }
 
@@ -414,6 +396,7 @@ window.addEventListener("resize", createMasonry);
 
 </body>
 </html>
+
 
 
 
