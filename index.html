@@ -208,6 +208,34 @@ button {
   font-weight: 600;
   cursor: pointer;
 }
+/* OVERLAY TITULO */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.overlay span {
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  padding: 20px;
+  line-height: 1.4;
+}
+
+.item {
+  position: relative;
+}
+
+.item:hover .overlay {
+  opacity: 1;
+}
 
 /* MOBILE */
 @media (max-width: 768px) {
@@ -266,14 +294,23 @@ button {
 
   <div class="item" onclick="openProject('newyorker')">
   <img src="NEW YORKER PESO photo.png" alt="New Yorker">
+  <div class="overlay">
+    <span>Should you just give up?</span>
+  </div>
 </div>
 
   <div class="item" onclick="openProject('ho')">
   <img src="ho know you photo.png" alt="Ho Know You">
+  <div class="overlay">
+    <span>Does anyone really know you?</span>
+  </div>
 </div>
 
 <div class="item" onclick="openProject('rata')">
   <img src="rata photo.png" alt="Rata">
+  <div class="overlay">
+    <span>What animals understand about death?</span>
+  </div>
 </div>
 
 </section>
