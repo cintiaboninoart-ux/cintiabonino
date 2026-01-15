@@ -75,19 +75,22 @@
       padding: 40px 24px 80px;
     }
 
-    /* GRID TIPO MASONRY */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-auto-rows: 10px;
-      gap: 24px;
+    /* MASONRY REAL */
+    .masonry {
+      position: relative;
+    }
+
+    .column {
+      float: left;
+      width: 33.333%;
+      padding: 12px;
+      box-sizing: border-box;
     }
 
     .item {
+      margin-bottom: 24px;
       position: relative;
-      overflow: hidden;
       cursor: pointer;
-      align-self: start;
       transition: box-shadow 0.3s ease, filter 0.3s ease;
     }
 
@@ -100,11 +103,6 @@
     .item:hover {
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
       filter: brightness(1.05);
-    }
-
-    /* Proyecto destacado */
-    .item.featured {
-      grid-column: span 2;
     }
 
     /* OVERLAY */
@@ -190,26 +188,12 @@
     .nav-arrow.left { left: 20px; }
     .nav-arrow.right { right: 20px; }
 
-    /* Forzar Lunática y Anna lado a lado en desktop */
-    @media (min-width: 769px) {
-      .grid .side-by-side:nth-child(4) {
-        grid-column: 1 / 3;
-      }
-      .grid .side-by-side:nth-child(5) {
-        grid-column: 3 / 4;
-      }
-    }
-
     /* MOBILE */
     @media (max-width: 768px) {
       header { padding-top: 170px; }
 
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .item.featured {
-        grid-column: span 1;
+      .column {
+        width: 100%;
       }
 
       .overlay {
@@ -265,35 +249,11 @@
 </header>
 
 <section>
-  <div class="grid" id="grid">
+  <div class="masonry" id="masonry">
 
-    <div class="item" onclick="openProject(0)">
-      <img src="NEW YORKER PESO photo.png" alt="">
-      <div class="overlay"><span>Should you just give up?</span></div>
-    </div>
-
-    <!-- PROYECTO 2 DESTACADO -->
-    <div class="item featured" onclick="openProject(1)">
-      <img src="ho know you photo.png" alt="">
-      <div class="overlay"><span>Does anyone really know you?</span></div>
-    </div>
-
-    <div class="item" onclick="openProject(2)">
-      <img src="rata photo.png" alt="">
-      <div class="overlay"><span>What animals understand about death?</span></div>
-    </div>
-
-    <!-- LUNÁTICA -->
-    <div class="item side-by-side" onclick="openProject(3)">
-      <img src="1.png" alt="">
-      <div class="overlay"><span>Lunática</span></div>
-    </div>
-
-    <!-- ANNA -->
-    <div class="item side-by-side" onclick="openProject(4)">
-      <img src="anna.png" alt="">
-      <div class="overlay"><span>Los mundos de Anna</span></div>
-    </div>
+    <div class="column"></div>
+    <div class="column"></div>
+    <div class="column"></div>
 
   </div>
 </section>
@@ -314,31 +274,80 @@ const projects = [
   {
     title: "Should you just give up?",
     description: "Ilustración editorial para artículo de revista.",
+    cover: "NEW YORKER PESO photo.png",
     images: ["NEW YORKER PESO photo.png", "new yorker peso mock.png"]
   },
   {
     title: "Does anyone really know you?",
     description: "Ilustración editorial para artículo de revista.",
+    cover: "ho know you photo.png",
     images: ["ho know you photo.png", "ho know you photo mock.png"]
   },
   {
     title: "What animals understand about death?",
     description: "Ilustración editorial para artículo de revista.",
+    cover: "rata photo.png",
     images: ["rata photo.png", "rata new yorker.png"]
   },
   {
     title: "Lunática",
     description: "Ilustraciones para el álbum ilustrado.",
+    cover: "1.png",
     images: ["luna llena mock.png", "desayuno mock.png"]
   },
   {
     title: "Los mundos de Anna",
     description: "Ilustración de portada e interior para libro juvenil.",
+    cover: "anna.png",
     images: ["libro anna.png", "ANNA MOCK INTERN.png"]
   }
 ];
 
 let currentProjectIndex = 0;
+
+
+/* ---------- GENERAR MASONRY ---------- */
+
+function createMasonry() {
+  const masonry = document.getElementById("masonry");
+  const columns = masonry.querySelectorAll(".column");
+
+  // limpiar columnas
+  columns.forEach(col => col.innerHTML = "");
+
+  projects.forEach((project, index) => {
+    const item = document.createElement("div");
+    item.className = "item";
+    item.onclick = () => openProject(index);
+
+    const img = document.createElement("img");
+    img.src = project.cover;
+
+    const overlay = document.createElement("div");
+    overlay.className = "overlay";
+    overlay.innerHTML = `<span>${project.title}</span>`;
+
+    item.appendChild(img);
+    item.appendChild(overlay);
+
+    // insertar en la columna más corta
+    const shortestColumn = getShortestColumn(columns);
+    shortestColumn.appendChild(item);
+  });
+}
+
+function getShortestColumn(columns) {
+  let shortest = columns[0];
+
+  columns.forEach(col => {
+    if (col.scrollHeight < shortest.scrollHeight) {
+      shortest = col;
+    }
+  });
+
+  return shortest;
+}
+
 
 /* ---------- MODAL ---------- */
 
@@ -378,48 +387,16 @@ function prevProject() {
 }
 
 
-/* ---------- MASONRY AUTO LAYOUT ---------- */
+/* ---------- INIT ---------- */
 
-function resizeAllGridItems() {
-  const grid = document.getElementById("grid");
-  const rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
-  const rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('gap'));
-
-  grid.querySelectorAll('.item').forEach(item => {
-    const img = item.querySelector('img');
-
-    if (!img.complete) return;
-
-    const imgRatio = img.naturalWidth / img.naturalHeight;
-
-    // Horizontales ocupan 2 columnas automáticamente (salvo featured y side-by-side)
-    if (!item.classList.contains("featured") && !item.classList.contains("side-by-side")) {
-      if (imgRatio > 1.3 && window.innerWidth > 768) {
-        item.style.gridColumn = "span 2";
-      } else {
-        item.style.gridColumn = "span 1";
-      }
-    }
-
-    const rowSpan = Math.ceil((img.offsetHeight + rowGap) / (rowHeight + rowGap));
-    item.style.gridRowEnd = "span " + rowSpan;
-  });
-}
-
-
-/* ---------- EVENTOS ---------- */
-
-window.addEventListener("load", resizeAllGridItems);
-window.addEventListener("resize", resizeAllGridItems);
-
-document.querySelectorAll('.item img').forEach(img => {
-  img.addEventListener('load', resizeAllGridItems);
-});
+window.addEventListener("load", createMasonry);
+window.addEventListener("resize", createMasonry);
 
 </script>
 
 </body>
 </html>
+
 
 
 
