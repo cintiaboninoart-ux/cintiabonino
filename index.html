@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <title>Cintia Bonino — Selección de trabajo</title>
 
-  <style>
-  body {
+ <style>
+/* RESET GENERAL */
+body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
   background: #ffffff;
@@ -46,11 +47,41 @@
   border-bottom: 2px solid #9CFF2E;
 }
 
+/* HEADER */
+header {
+  max-width: 1100px;
+  margin: auto;
+  padding: 120px 24px 40px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0;
+}
+
+header p {
+  font-size: 16px;
+  margin-top: 12px;
+  color: #666;
+  text-align: center;
+}
+
+/* SUBTÍTULO */
+.subtitle {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #666;
+}
+
 /* CONTENIDO */
 section {
   max-width: 1100px;
   margin: auto;
   padding: 40px 32px 80px;
+  box-sizing: border-box;
 }
 
 /* GRID GALERÍA */
@@ -75,51 +106,67 @@ section {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.4s ease;
 }
 
-
-/* GRID */
-.grid {
-  width: 100%;
-  margin: 0 auto;             /* centra la grilla */
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  gap: 40px;
-}
-
-.item {
-  height: 420px;
-  background: #f2f2f2;
-  overflow: hidden;
-  cursor: pointer;
-}
-
+/* HOVER */
 .item:hover {
   transform: scale(1.03);
   box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-}
-
-.item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
 }
 
 .item:hover img {
   transform: scale(1.08);
 }
 
-.project-grid {
-  max-width: 700px;   /* ancho editorial */
-  margin: auto;
+/* MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  overflow: auto;
 }
 
-.project-grid img {
+.modal-content {
+  max-width: 800px;
+  margin: 80px auto;
+  padding: 20px;
+  color: white;
+}
+
+.modal-content img {
   width: 100%;
-  max-width: 700px;
-  margin: 0 auto 40px;
+  margin-bottom: 30px;
   display: block;
+}
+
+.project-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 12px;
+  color: white;
+}
+
+.project-description {
+  max-width: 700px;
+  margin: 0 auto 50px;
+  text-align: justify;
+  line-height: 1.7;
+  color: white;
+}
+
+.close {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
 }
 
 /* CONTACTO */
@@ -162,50 +209,7 @@ button {
   cursor: pointer;
 }
 
-/* RESPONSIVE */
-/* HEADER */
-
-header {
-  max-width: 1100px;
-  margin: auto;
-  padding: 120px 24px 40px;
-  text-align: center;
-}
-
-header h1 {
-  font-size: 36px;
-  font-weight: 700;
-  margin: 0;
-}
-
-header p {
-  font-size: 16px;
-  margin-top: 12px;
-  color: #666;
-  text-align: center;
-}
-.subtitle {
-  text-align: center;
-}
-.subtitle {
-  text-align: center;
-  margin-bottom: 8px;   /* reduce el espacio debajo */
-  margin-top: 0;
-}
-.project-title {
-  color: white;
-  text-align: center;
-  font-size: 28px;
-  margin-bottom: 12px;
-}
-
-.project-description {
-  color: white;
-  max-width: 700px;
-  margin: 0 auto 50px;
-  text-align: justify;
-  line-height: 1.7;
-}
+/* MOBILE */
 @media (max-width: 768px) {
 
   .nav-inner {
@@ -215,26 +219,7 @@ header p {
   section {
     padding: 24px 20px 60px;
   }
-}
 
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .item {
-    height: 220px;
-  }
-
-  .contact-container {
-    padding: 0 10px;
-  }
-}
-.item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-@media (max-width: 768px) {
   .grid {
     grid-template-columns: 1fr;
     gap: 28px;
@@ -243,42 +228,13 @@ header p {
   .item {
     height: 300px;
   }
-}
-/* MODAL */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 2000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.9);
-  overflow: auto;
-}
 
-.modal-content {
-  max-width: 800px;
-  margin: 80px auto;
-  padding: 20px;
+  header {
+    padding: 100px 20px 30px;
+  }
 }
+</style>
 
-.modal-content img {
-  width: 100%;
-  margin-bottom: 30px;
-  display: block;
-}
-
-.close {
-  position: fixed;
-  top: 20px;
-  right: 30px;
-  color: white;
-  font-size: 40px;
-  cursor: pointer;
-}
-
-  </style>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
