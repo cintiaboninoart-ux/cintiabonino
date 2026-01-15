@@ -164,6 +164,17 @@ section {
 
 /* MOBILE */
 @media (max-width: 768px) {
+  /* Animación suave entre proyectos */
+.modal-content {
+  transition: transform 0.35s ease, opacity 0.35s ease;
+  will-change: transform, opacity;
+}
+
+.modal-content.animating {
+  opacity: 0;
+  transform: translateX(40px);
+}
+
   .grid {
     grid-template-columns: 1fr;
     gap: 28px;
@@ -227,10 +238,47 @@ section {
 <!-- MODAL -->
 <div id="modal" class="modal">
   <span class="close" onclick="closeModal()">&times;</span>
-  <div class="modal-content" id="modal-content"></div>
+
+  <div class="nav-arrow left" onclick="prevProject()">‹</div>
+  <div class="nav-arrow right" onclick="nextProject()">›</div>
+
+ <div class="modal-content" id="modal-content"></div>
+<div class="project-indicator" id="project-indicator"></div>
 </div>
 
 <script>
+/* Flechas navegación */
+.nav-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 60px;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  z-index: 3000;
+  padding: 10px;
+  user-select: none;
+  transition: opacity 0.3s ease;
+}
+
+.nav-arrow:hover {
+  opacity: 1;
+}
+
+.nav-arrow.left {
+  left: 20px;
+}
+
+.nav-arrow.right {
+  right: 20px;
+}
+
+/* Ocultarlas en mobile (porque ya hay swipe) */
+@media (max-width: 768px) {
+  .nav-arrow {
+    display: none;
+  }
+}
 
 /* ---------- PROYECTOS ---------- */
 
@@ -292,14 +340,96 @@ function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
 
-/* ---------- SWIPE ---------- */
-
-let startX = 0;
-let startY = 0;
+/* ---------- DRAG REAL (SWIPE CON SEGUIMIENTO) ---------- */
 
 const modal = document.getElementById("modal");
+const modalContent = document.getElementById("modal-content");
 
-modal.addEventListener("touchstart", function(e) {
+let isDragging = false;
+let startX = 0;
+let currentX = 0;
+let deltaX = 0;
+
+const SWIPE_THRESHOLD = 120;
+
+/* Touch start */
+modalContent.addEventListener("touchstart", (e) => {
+  if (!modal.style.display || modal.style.display === "none") return;
+
+  isDragging = true;
+  startX = e.touches[0].clientX;
+  currentX = startX;
+  deltaX = 0;
+
+  modalContent.classList.add("dragging");
+}, { passive: true });
+
+/* Touch move */
+modalContent.addEventListener("touchmove", (e) => {
+  if (!isDragging) return;
+
+  currentX = e.touches[0].clientX;
+  deltaX = currentX - startX;
+
+  modalContent.style.transform = `translateX(${deltaX}px)`;
+}, { passive: true });
+
+/* Touch end */
+modalContent.addEventListener("touchend", () => {
+  if (!isDragging) return;
+  isDragging = false;
+
+  modalContent.classList.remove("dragging");
+
+  // Si pasó el umbral → cambiamos proyecto
+  if (Math.abs(deltaX) > SWIPE_THRESHOLD) {
+    if (deltaX < 0) {
+      animateToNext();
+    } else {
+      animateToPrev();
+    }
+  } else {
+    // Si no, vuelve al centro
+    modalContent.style.transition = "transform 0.35s ease";
+    modalContent.style.transform = "translateX(0)";
+  }
+});
+
+/* ---------- ANIMACIONES ---------- */
+
+function animateToNext() {
+  modalContent.style.transition = "transform 0.35s ease";
+  modalContent.style.transform = "translateX(-100%)";
+
+  setTimeout(() => {
+    nextProject();
+    modalContent.style.transition = "none";
+    modalContent.style.transform = "translateX(100%)";
+
+    requestAnimationFrame(() => {
+      modalContent.style.transition = "transform 0.35s ease";
+      modalContent.style.transform = "translateX(0)";
+    });
+  }, 300);
+}
+
+function animateToPrev() {
+  modalContent.style.transition = "transform 0.35s ease";
+  modalContent.style.transform = "translateX(100%)";
+
+  setTimeout(() => {
+    prevProject();
+    modalContent.style.transition = "none";
+    modalContent.style.transform = "translateX(-100%)";
+
+    requestAnimationFrame(() => {
+      modalContent.style.transition = "transform 0.35s ease";
+      modalContent.style.transform = "translateX(0)";
+    });
+  }, 300);
+}
+
+
   const touch = e.touches[0];
   startX = touch.clientX;
   startY = touch.clientY;
@@ -323,13 +453,35 @@ modal.addEventListener("touchend", function(e) {
 }, { passive: true });
 
 function nextProject() {
-  currentProjectIndex = (currentProjectIndex + 1) % projects.length;
-  openProject(currentProjectIndex);
+  const content = document.getElementById("modal-content");
+  content.classList.add("animating");
+
+  setTimeout(() => {
+    currentProjectIndex = (currentProjectIndex + 1) % projects.length;
+    openProject(currentProjectIndex);
+    content.classList.remove("animating");
+  }, 200);
 }
 
 function prevProject() {
-  currentProjectIndex = (currentProjectIndex - 1 + projects.length) % projects.length;
-  openProject(currentProjectIndex);
+  const content = document.getElementById("modal-content");
+  content.classList.add("animating");
+
+  setTimeout(() => {
+    currentProjectIndex = (currentProjectIndex - 1 + projects.length) % projects.length;
+    openProject(currentProjectIndex);
+    content.classList.remove("animating");
+  }, 200);
+}
+/* Drag real */
+.modal-content {
+  transition: transform 0.35s ease, opacity 0.35s ease;
+  will-change: transform;
+}
+
+.modal-content.dragging {
+  transition: none;
+  cursor: grabbing;
 }
 
 </script>
