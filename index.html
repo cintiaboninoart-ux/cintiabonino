@@ -81,18 +81,41 @@
   gap: 24px;
 }
 
+/* ITEM base (todas las portadas) */
 .item {
   height: 350px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: #f2f2f2;
+  transition: transform 0.3s ease;
 }
 
+/* Anna ocupa dos columnas */
 .item-horizontal {
   grid-column: span 2;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* Imagen de Anna en tamaño real */
+.item-horizontal img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Portadas normales */
 .item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.item:hover {
+  transform: scale(1.02);
 }
 
 /* SOLO ANNA */
