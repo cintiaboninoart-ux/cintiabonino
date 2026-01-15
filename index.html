@@ -48,15 +48,19 @@
 
 /* CONTENIDO */
 section {
-  padding: 24px 32px 80px;
+  max-width: 1100px;
+  margin: 0 auto;              /* centra el contenido */
+  padding: 40px 32px 80px;    /* espacio controlado */
+  box-sizing: border-box;     /* evita desbordes */
 }
 
 /* GRID */
 .grid {
+  width: 100%;
+  margin: 0 auto;             /* centra la grilla */
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: 40px;
-  margin-top: 0px;
 }
 
 .item {
@@ -64,8 +68,8 @@ section {
   background: #f2f2f2;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
+
 .item:hover {
   transform: scale(1.03);
   box-shadow: 0 20px 40px rgba(0,0,0,0.12);
