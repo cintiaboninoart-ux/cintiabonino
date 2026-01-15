@@ -166,6 +166,9 @@ section {
 
 /* MOBILE */
 @media (max-width: 768px) {
+.modal {
+  touch-action: pan-y; /* permite scroll vertical y captura swipe horizontal */
+}
 
   .nav-inner {
     justify-content: center;
@@ -302,6 +305,71 @@ function openProject(name) {
 function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
+
+/* ---------- PROYECTOS (como ya los tenés) ---------- */
+/* ... tu objeto projects y funciones openProject/closeModal ... */
+
+/* ---------- ORDEN AUTOMÁTICO (opcional pero recomendado) ---------- */
+let projectOrder = [];
+let currentProjectIndex = 0;
+
+document.addEventListener("DOMContentLoaded", () => {
+  const items = document.querySelectorAll(".item[data-project]");
+  projectOrder = Array.from(items).map(item => item.dataset.project);
+});
+
+/* ---------- SWIPE (MÓVIL) ---------- */
+let startX = 0;
+let startY = 0;
+
+const modalEl = document.getElementById("modal");
+const modalContentEl = document.getElementById("modal-content");
+
+// Escuchamos sobre el contenido (donde tocás realmente)
+modalContentEl.addEventListener("touchstart", (e) => {
+  const t = e.touches[0];
+  startX = t.clientX;
+  startY = t.clientY;
+}, { passive: true });
+
+modalContentEl.addEventListener("touchend", (e) => {
+  const t = e.changedTouches[0];
+  const endX = t.clientX;
+  const endY = t.clientY;
+
+  const diffX = startX - endX;
+  const diffY = startY - endY;
+
+  // Solo si es más horizontal que vertical y suficientemente largo
+  if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 60) {
+    if (diffX > 0) {
+      nextProject();   // swipe izquierda
+    } else {
+      prevProject();   // swipe derecha
+    }
+  }
+}, { passive: true });
+
+/* ---------- NAVEGACIÓN ---------- */
+function nextProject() {
+  if (!projectOrder.length) return;
+  currentProjectIndex = (currentProjectIndex + 1) % projectOrder.length;
+  openProject(projectOrder[currentProjectIndex]);
+}
+
+function prevProject() {
+  if (!projectOrder.length) return;
+  currentProjectIndex =
+    (currentProjectIndex - 1 + projectOrder.length) % projectOrder.length;
+  openProject(projectOrder[currentProjectIndex]);
+}
+
+/* ---------- IMPORTANTE: actualizamos el índice al abrir ---------- */
+const _openProject = openProject;
+openProject = function(name) {
+  currentProjectIndex = projectOrder.indexOf(name);
+  _openProject(name);
+};
 
 /* ---------- SWIPE ---------- */
 
