@@ -100,21 +100,20 @@
       transform: scale(1.02);
     }
 
-   /* Portada con tamaño real */
-/* Portada con tamaño editorial real */
+/* Portada con proporción real y mismo alto */
 .item-original {
-  aspect-ratio: unset;      /* elimina el cuadrado */
-  height: auto;
-  grid-row: span 2;         /* ocupa dos filas reales */
-  align-self: start;       /* evita que se estire */
+  aspect-ratio: unset;     /* no la forzamos a cuadrado */
+  height: 100%;            /* mismo alto que las demás */
 }
 
 .item-original img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;       /* se comporta como portada */
+  width: auto;             /* ancho real */
+  height: 100%;            /* mismo alto que las demás */
+  object-fit: contain;     /* no recorta */
+  margin: auto;            /* centra horizontalmente */
   display: block;
 }
+
 
     /* OVERLAY */
     .overlay {
