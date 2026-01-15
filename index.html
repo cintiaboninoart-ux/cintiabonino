@@ -79,18 +79,23 @@
       gap: 24px;
     }
 
+    /* ITEM base (todas las portadas) */
+.item {
+  aspect-ratio: 1 / 1;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: #f2f2f2;
+  transition: transform 0.3s ease;
+}
     /* ITEM */
    /* Portada horizontal */
+/* Portada horizontal integrada en la grilla */
 .item-horizontal {
-  grid-column: span 2;     /* ocupa dos columnas */
-  aspect-ratio: 2 / 1;    /* proporción horizontal */
+  grid-column: span 2;      /* ocupa dos columnas */
+  aspect-ratio: 2 / 1;     /* formato horizontal */
 }
 
-.item-horizontal img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
 
     .item img {
       width: 100%;
@@ -101,21 +106,6 @@
     .item:hover {
       transform: scale(1.02);
     }
-
-/* Portada con proporción real y mismo alto */
-.item-original {
-  aspect-ratio: unset;     /* no la forzamos a cuadrado */
-  height: 100%;            /* mismo alto que las demás */
-}
-
-.item-original img {
-  width: auto;             /* ancho real */
-  height: 100%;            /* mismo alto que las demás */
-  object-fit: contain;     /* no recorta */
-  margin: auto;            /* centra horizontalmente */
-  display: block;
-}
-
 
     /* OVERLAY */
     .overlay {
@@ -288,7 +278,7 @@
     </div>
 
     <!-- Los mundos de Anna -->
-    <div class="item item-original" onclick="openProject(4)">
+    <div class="item item-horizontal" onclick="openProject(4)">
   <img src="anna.png" alt="">
   <div class="overlay"><span>Los mundos de Anna</span></div>
 </div>
