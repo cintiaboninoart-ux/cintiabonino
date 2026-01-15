@@ -190,6 +190,19 @@ section {
     color: #111;
   }
 }
+.modal-content {
+  transition: transform 0.35s ease;
+  will-change: transform;
+}
+
+.modal-content.dragging {
+  transition: none;
+  cursor: grabbing;
+}
+
+.item {
+  touch-action: manipulation;
+}
 
 </style>
 </head>
@@ -345,43 +358,42 @@ function closeModal() {
 const modal = document.getElementById("modal");
 const modalContent = document.getElementById("modal-content");
 
-let isDragging = false;
 let startX = 0;
 let currentX = 0;
 let deltaX = 0;
+let hasMoved = false;
 
 const SWIPE_THRESHOLD = 120;
+const MOVE_THRESHOLD = 10;
 
 /* Touch start */
 modalContent.addEventListener("touchstart", (e) => {
-  if (!modal.style.display || modal.style.display === "none") return;
+  if (modal.style.display === "none") return;
 
-  isDragging = true;
   startX = e.touches[0].clientX;
   currentX = startX;
   deltaX = 0;
-
-  modalContent.classList.add("dragging");
+  hasMoved = false;
 }, { passive: true });
 
 /* Touch move */
 modalContent.addEventListener("touchmove", (e) => {
-  if (!isDragging) return;
-
   currentX = e.touches[0].clientX;
   deltaX = currentX - startX;
 
-  modalContent.style.transform = `translateX(${deltaX}px)`;
+  if (Math.abs(deltaX) > MOVE_THRESHOLD) {
+    hasMoved = true;
+    modalContent.classList.add("dragging");
+    modalContent.style.transform = `translateX(${deltaX}px)`;
+  }
 }, { passive: true });
 
 /* Touch end */
 modalContent.addEventListener("touchend", () => {
-  if (!isDragging) return;
-  isDragging = false;
+  if (!hasMoved) return;
 
   modalContent.classList.remove("dragging");
 
-  // Si pasó el umbral → cambiamos proyecto
   if (Math.abs(deltaX) > SWIPE_THRESHOLD) {
     if (deltaX < 0) {
       animateToNext();
@@ -389,7 +401,6 @@ modalContent.addEventListener("touchend", () => {
       animateToPrev();
     }
   } else {
-    // Si no, vuelve al centro
     modalContent.style.transition = "transform 0.35s ease";
     modalContent.style.transform = "translateX(0)";
   }
@@ -427,61 +438,6 @@ function animateToPrev() {
       modalContent.style.transform = "translateX(0)";
     });
   }, 300);
-}
-
-
-  const touch = e.touches[0];
-  startX = touch.clientX;
-  startY = touch.clientY;
-}, { passive: true });
-
-modal.addEventListener("touchend", function(e) {
-  const touch = e.changedTouches[0];
-  const endX = touch.clientX;
-  const endY = touch.clientY;
-
-  const diffX = startX - endX;
-  const diffY = startY - endY;
-
-  if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 60) {
-    if (diffX > 0) {
-      nextProject();
-    } else {
-      prevProject();
-    }
-  }
-}, { passive: true });
-
-function nextProject() {
-  const content = document.getElementById("modal-content");
-  content.classList.add("animating");
-
-  setTimeout(() => {
-    currentProjectIndex = (currentProjectIndex + 1) % projects.length;
-    openProject(currentProjectIndex);
-    content.classList.remove("animating");
-  }, 200);
-}
-
-function prevProject() {
-  const content = document.getElementById("modal-content");
-  content.classList.add("animating");
-
-  setTimeout(() => {
-    currentProjectIndex = (currentProjectIndex - 1 + projects.length) % projects.length;
-    openProject(currentProjectIndex);
-    content.classList.remove("animating");
-  }, 200);
-}
-/* Drag real */
-.modal-content {
-  transition: transform 0.35s ease, opacity 0.35s ease;
-  will-change: transform;
-}
-
-.modal-content.dragging {
-  transition: none;
-  cursor: grabbing;
 }
 
 </script>
