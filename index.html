@@ -108,7 +108,18 @@ section {
   touch-action: manipulation;
 }
 
-.item img {
+/* Portada con proporción original */
+.item-original {
+  aspect-ratio: auto;     /* quita el formato cuadrado */
+  height: auto;
+}
+
+.item-original img {
+  height: auto;
+  object-fit: contain;   /* no recorta la imagen */
+}
+
+  .item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
