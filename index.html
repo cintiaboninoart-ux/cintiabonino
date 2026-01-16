@@ -339,7 +339,15 @@ const projects = [
     "ADIDAS PRIDE ABSTRACCION MOCK.png"
   ]
 },
-{
+ {
+  title: "Soporte",
+  description: "Animación.",
+  cover: "soporte.mp4",
+  images: [
+    "images/soporte.mp4"
+  ]
+},
+  {
   title: "Cartel para Fiesta mayor del Raval",
   description: "Para el cartel del Festival Raval 2025, me inspiré en la diversidad del vecindario. Incluí algunos de sus símbolos, como la escultura del Gato de la MACBA y Botero, y como figura destacada; La Mónica del Raval, a quien conocí hace unos años gracias a un documental. Su perspectiva de la vida, su audacia y su sentido de pertenencia al vecindario me tocaron el corazón. Por eso, meses después de su fallecimiento, quería rendirle homenaje.",
   cover: "CARTELL FESTA MAJOR DEL RAVAL 2025.png",
@@ -419,10 +427,23 @@ function openProject(index) {
   `;
 
   project.images.forEach(src => {
+  if (src.endsWith(".mp4") || src.endsWith(".mov")) {
+    const video = document.createElement("video");
+    video.src = src;
+    video.autoplay = true;
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.controls = true;
+    video.style.width = "100%";
+    video.style.marginBottom = "30px";
+    content.appendChild(video);
+  } else {
     const img = document.createElement("img");
     img.src = src;
     content.appendChild(img);
-  });
+  }
+});
 
   modal.style.display = "block";
 }
