@@ -344,7 +344,7 @@ const projects = [
   description: "Animación.",
   cover: "soporte.mp4",
   images: [
-    "images/soporte.mp4"
+    "soporte.mp4"
   ]
 },
   {
@@ -376,26 +376,29 @@ function createMasonry() {
     item.className = "item";
     item.onclick = () => openProject(index);
 
+    // Portada imagen o video
     if (project.cover.endsWith(".mp4")) {
-  const video = document.createElement("video");
-  video.src = project.cover;
-  video.autoplay = true;
-  video.loop = true;
-  video.muted = true;
-  video.playsInline = true;
-  video.style.width = "100%";
-  video.style.display = "block";
-  item.appendChild(video);
-} else {
-  const img = document.createElement("img");
-  img.src = project.cover;
-  item.appendChild(img);
-}
+      const video = document.createElement("video");
+      video.src = project.cover;
+      video.autoplay = true;
+      video.loop = true;
+      video.muted = true;
+      video.playsInline = true;
+      video.style.width = "100%";
+      video.style.display = "block";
+      item.appendChild(video);
+    } else {
+      const img = document.createElement("img");
+      img.src = project.cover;
+      item.appendChild(img);
+    }
 
     const overlay = document.createElement("div");
     overlay.className = "overlay";
     overlay.innerHTML = `<span>${project.title}</span>`;
-}
+
+    item.appendChild(overlay);
+
     const shortestColumn = getShortestColumn(columns);
     shortestColumn.appendChild(item);
   });
