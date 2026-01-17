@@ -432,8 +432,8 @@ function createMasonry() {
 
     item.appendChild(overlay);
 
-    const shortestColumn = getShortestColumn(columns);
-    shortestColumn.appendChild(item);
+    const columnIndex = index % columns.length;
+    columns[columnIndex].appendChild(item);
   });
 }
 
