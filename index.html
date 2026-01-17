@@ -104,7 +104,16 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
       filter: brightness(1.05);
     }
+    .item.featured {
+  transform: scale(1.08);
+  z-index: 2;
+}
 
+.item.featured img,
+.item.featured video {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
     /* OVERLAY */
     .overlay {
       position: absolute;
@@ -283,6 +292,7 @@ const projects = [
   },
   {
     title: "Does anyone really know you?",
+    featured: true,    
     description: "Ilustración editorial para artículo de revista.",
     cover: "ho know you photo.png",
     images: ["ho know you photo.png", "ho know you photo mock.png"]
@@ -295,6 +305,7 @@ const projects = [
   },
   {
     title: "Lunática",
+    featured: true,
     description: "Ilustraciones para el álbum ilustrado.",
     cover: "1.png",
     images: ["luna llena mock.png", "desayuno mock.png"]
@@ -406,7 +417,12 @@ function createMasonry() {
 
   projects.forEach((project, index) => {
     const item = document.createElement("div");
-    item.className = "item";
+item.className = "item";
+
+if (project.featured) {
+  item.classList.add("featured");
+}
+
     item.onclick = () => openProject(index);
 
     // Portada imagen o video
