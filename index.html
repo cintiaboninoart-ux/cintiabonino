@@ -429,22 +429,47 @@ function createItem(project, index) {
   const item = document.createElement("div");
   item.className = "item";
 
-  // Click + touch para móvil
-item.addEventListener("click", () => openProject(index));
-item.addEventListener("touchstart", (e) => {
-  e.preventDefault();
-  openProject(index);
-});
+  let startY = 0;
+  let startX = 0;
+  let isScrolling = false;
 
+  // Touch start
+  item.addEventListener("touchstart", (e) => {
+    startY = e.touches[0].clientY;
+    startX = e.touches[0].clientX;
+    isScrolling = false;
+  }, { passive: true });
+
+  // Touch move (detecta scroll)
+  item.addEventListener("touchmove", (e) => {
+    const moveY = Math.abs(e.touches[0].clientY - startY);
+    const moveX = Math.abs(e.touches[0].clientX - startX);
+
+    if (moveY > 10 || moveX > 10) {
+      isScrolling = true;
+    }
+  }, { passive: true });
+
+  // Touch end (solo abre si fue tap)
+  item.addEventListener("touchend", () => {
+    if (!isScrolling) {
+      openProject(index);
+    }
+  });
+
+  // Click normal para desktop
+  item.addEventListener("click", () => openProject(index));
+
+  // Media
   if (project.cover.endsWith(".mp4")) {
     const video = document.createElement("video");
     video.src = project.cover;
-    video.autoplay = false;        // 🔥 no autoplay en móvil
+    video.autoplay = false;
     video.loop = true;
     video.muted = true;
     video.playsInline = true;
     video.controls = false;
-    video.style.pointerEvents = "none"; // 🔥 deja pasar el tap
+    video.style.pointerEvents = "none";
     item.appendChild(video);
   } else {
     const img = document.createElement("img");
