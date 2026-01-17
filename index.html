@@ -5,14 +5,7 @@
   <title>Cintia Bonino — Selección de trabajo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Solo si usás redirección -->
-  <!-- <meta http-equiv="refresh" content="0; url=seleccion.html"> -->
-
   <style>
-    /* todo tu CSS acá */
-  </style>
-</head>
-
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
@@ -81,7 +74,7 @@
       padding: 40px 24px 80px;
     }
 
-    /* MASONRY EDITORIAL */
+    /* MASONRY */
     .masonry {
       display: flex;
       flex-direction: column;
@@ -204,7 +197,6 @@
     .nav-arrow.left { left: 20px; }
     .nav-arrow.right { right: 20px; }
 
-    /* MOBILE */
     @media (max-width: 768px) {
       header { padding-top: 160px; }
 
@@ -249,8 +241,7 @@
 
 <header>
   <h1 class="name-title">Cintia Bonino</h1>
-  <p>
-Ilustración editorial y comercial · Dirección de arte · Animación</p>
+  <p>Ilustración editorial y comercial · Dirección de arte · Animación</p>
 </header>
 
 <section>
@@ -390,10 +381,9 @@ const projects = [
   }
 ];
 
-
 let currentProjectIndex = 0;
 
-/* ---------- GENERAR GRID EDITORIAL ---------- */
+/* ---------- GRID ---------- */
 
 function createMasonry() {
   const masonry = document.getElementById("masonry");
@@ -406,7 +396,6 @@ function createMasonry() {
     if ((i / 3) % 2 !== 0) row.classList.add("reverse");
 
     const bigItem = createItem(projects[i], i);
-
     const smallGrid = document.createElement("div");
     smallGrid.className = "small-grid";
 
@@ -471,7 +460,6 @@ function openProject(index) {
       const video = document.createElement("video");
       video.src = src;
       video.controls = true;
-      video.style.width = "100%";
       content.appendChild(video);
     } else {
       const img = document.createElement("img");
@@ -497,13 +485,13 @@ function prevProject() {
   openProject(currentProjectIndex);
 }
 
-/* INIT */
 window.addEventListener("load", createMasonry);
 
 </script>
 
 </body>
 </html>
+
 
 
 
