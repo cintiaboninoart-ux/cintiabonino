@@ -3,142 +3,201 @@
 <head>
   <meta charset="UTF-8">
   <title>Cintia Bonino — Personal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #ffffff;
-  color: #111111;
-  line-height: 1.6;
-}
 
-/* MENÚ */
-.nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: #ffffff;
-  border-bottom: 1px solid #ddd;
-  z-index: 1000;
-}
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #ffffff;
+      color: #111111;
+    }
 
-.nav-inner {
-  max-width: 1100px;
-  margin: auto;
-  padding: 20px 24px;
-  display: flex;
-  justify-content: center;
-  gap: 28px;
-  flex-wrap: wrap;
-}
+    /* NAV */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #ffffff;
+      border-bottom: 1px solid #ddd;
+      z-index: 1000;
+    }
 
-.nav-inner a {
-  text-decoration: none;
-  color: #111;
-  font-size: 15px;
-  font-weight: 500;
-  padding-bottom: 4px;
-}
+    .nav-inner {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
 
-.nav-inner a:hover {
-  border-bottom: 2px solid #9CFF2E;
-}
+    .nav-inner a {
+      text-decoration: none;
+      color: #111;
+      font-size: 15px;
+    }
 
-/* CONTENIDO */
-section {
-  max-width: 1100px;
-  margin: auto;
-  padding: 140px 24px 80px;
-}
+    /* HEADER */
+    header {
+      max-width: 1100px;
+      margin: auto;
+      padding: 120px 24px 40px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
 
-/* GRID */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 24px;
-}
+    header h1 {
+      font-size: 36px;
+      margin: 0;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
 
-.item {
-  background: #f5f5f5;
-  height: 260px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
-  color: #333;
-}
+    header p {
+      font-size: 16px;
+      margin-top: 12px;
+      color: #666;
+    }
 
-/* CONTACTO */
-.contact-container {
-  max-width: 600px;
-  margin: auto;
-  text-align: center;
-}
+    /* SECTION */
+    section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 40px 24px 80px;
+    }
 
-.contact-container h2 {
-  font-size: 28px;
-  margin-bottom: 30px;
-  border-bottom: 4px solid #9CFF2E;
-  display: inline-block;
-  padding-bottom: 6px;
-}
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
 
-.contact-container p {
-  margin-bottom: 40px;
-}
+    .item {
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+    }
 
-form {
-  width: 100%;
-}
+    .item video,
+    .item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
 
-input, textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  margin-bottom: 15px;
-  font-size: 14px;
-  box-sizing: border-box;
-}
+    .item:hover {
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
 
-button {
-  padding: 12px 30px;
-  background: #9CFF2E;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-}
+    /* OVERLAY */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
+    .overlay span {
+      color: white;
+      font-size: 18px;
+      text-align: center;
+      padding: 20px;
+    }
 
-  .nav-inner {
-    gap: 16px;
-  }
+    .item:hover .overlay {
+      opacity: 1;
+    }
 
-  section {
-    padding: 120px 20px 60px;
-  }
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 2000;
+      overflow-y: auto;
+    }
 
-  .grid {
-    grid-template-columns: 1fr;
-  }
+    .modal-content {
+      max-width: 800px;
+      margin: 80px auto;
+      padding: 20px;
+      color: white;
+    }
 
-  .item {
-    height: 220px;
-  }
+    .modal-content img,
+    .modal-content video {
+      width: 100%;
+      margin-bottom: 30px;
+    }
 
-  .contact-container {
-    padding: 0 10px;
-  }
-}
+    .project-title {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .project-description {
+      max-width: 700px;
+      margin: 0 auto 50px;
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    .close {
+      position: fixed;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 40px;
+      cursor: pointer;
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      header { padding-top: 170px; }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .overlay {
+        position: static;
+        background: none;
+        opacity: 1;
+      }
+
+      .overlay span {
+        color: #111;
+        font-size: 15px;
+      }
+
+      .modal-content {
+        margin: 70px auto 50px;
+        padding: 16px;
+      }
+
+      .project-title {
+        font-size: 22px;
+      }
+
+      .project-description {
+        font-size: 14px;
+      }
+    }
 
   </style>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>...</title>
+</head>
 
 <body>
 
@@ -152,13 +211,126 @@ button {
   </div>
 </nav>
 
+<header>
+  <h1>Cintia Bonino</h1>
+  <p>Proyectos personales · Animación · Exploración visual</p>
+</header>
+
 <section>
-  <div class="grid">
-    <div class="item">Proyecto personal 1</div>
-    <div class="item">Proyecto personal 2</div>
-    <div class="item">Proyecto personal 3</div>
-  </div>
+  <div class="grid" id="grid"></div>
 </section>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <div class="modal-content" id="modal-content"></div>
+</div>
+
+<script>
+
+/* ---------- PROYECTOS PERSONAL ---------- */
+
+const projects = [
+  {
+    title: "Videojuego",
+    description: "Proyecto personal en formato animación.",
+    cover: "videojuego.mp4",
+    images: ["videojuego.mp4"]
+  },
+  {
+    title: "Mudanza",
+    description: "Proyecto personal en formato animación.",
+    cover: "mudanza.mp4",
+    images: ["mudanza.mp4"]
+  },
+  {
+    title: "Ideas",
+    description: "Proyecto personal en formato animación.",
+    cover: "IDEAS.mp4",
+    images: ["IDEAS.mp4"]
+  }
+];
+
+
+/* ---------- GENERAR GRID ---------- */
+
+function createGrid() {
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+
+  projects.forEach((project, index) => {
+    const item = document.createElement("div");
+    item.className = "item";
+    item.onclick = () => openProject(index);
+
+    if (project.cover.endsWith(".mp4")) {
+      const video = document.createElement("video");
+      video.src = project.cover;
+      video.autoplay = true;
+      video.loop = true;
+      video.muted = true;
+      video.playsInline = true;
+      video.preload = "auto";
+      item.appendChild(video);
+    } else {
+      const img = document.createElement("img");
+      img.src = project.cover;
+      item.appendChild(img);
+    }
+
+    const overlay = document.createElement("div");
+    overlay.className = "overlay";
+    overlay.innerHTML = `<span>${project.title}</span>`;
+    item.appendChild(overlay);
+
+    grid.appendChild(item);
+  });
+}
+
+
+/* ---------- MODAL ---------- */
+
+function openProject(index) {
+  const modal = document.getElementById("modal");
+  const content = document.getElementById("modal-content");
+  const project = projects[index];
+
+  content.innerHTML = `
+    <h2 class="project-title">${project.title}</h2>
+    <p class="project-description">${project.description}</p>
+  `;
+
+  project.images.forEach(src => {
+    if (src.endsWith(".mp4") || src.endsWith(".mov")) {
+      const video = document.createElement("video");
+      video.src = src;
+      video.autoplay = true;
+      video.loop = true;
+      video.muted = true;
+      video.playsInline = true;
+      video.controls = true;
+      content.appendChild(video);
+    } else {
+      const img = document.createElement("img");
+      img.src = src;
+      content.appendChild(img);
+    }
+  });
+
+  modal.style.display = "block";
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
+
+/* ---------- INIT ---------- */
+
+window.addEventListener("load", createGrid);
+
+</script>
 
 </body>
 </html>
+
