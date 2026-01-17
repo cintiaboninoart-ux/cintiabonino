@@ -483,26 +483,28 @@ function createItem(project, index) {
   item.addEventListener("click", () => openProject(index));
 
   // MEDIA
-  if (project.cover.endsWith(".mp4")) {
-    const video = document.createElement("video");
+ if (src.endsWith(".mp4")) {
+  const video = document.createElement("video");
 
-    video.src = project.cover;
-    video.autoplay = true;
-    video.loop = true;
-    video.muted = true;
-    video.playsInline = true;
-    video.controls = false;
-    video.preload = "auto";
-    video.setAttribute("muted", "");       // iOS necesita esto
-    video.setAttribute("playsinline", ""); // iOS necesita esto
-    video.style.pointerEvents = "none";
+  video.src = src;
+  video.autoplay = true;
+  video.loop = true;
+  video.muted = true;
+  video.playsInline = true;
+  video.controls = false;
+  video.preload = "auto";
 
-    item.appendChild(video);
+  // iOS necesita estos atributos explícitos
+  video.setAttribute("muted", "");
+  video.setAttribute("playsinline", "");
 
-    // Forzar reproducción en móvil
-    video.addEventListener("canplay", () => {
-      video.play().catch(() => {});
-    });
+  content.appendChild(video);
+
+  // Forzar reproducción en móvil
+  video.addEventListener("canplay", () => {
+    video.play().catch(() => {});
+  });
+}
   } else {
     const img = document.createElement("img");
     img.src = project.cover;
