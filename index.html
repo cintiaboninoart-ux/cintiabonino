@@ -428,22 +428,29 @@ function createMasonry() {
 function createItem(project, index) {
   const item = document.createElement("div");
   item.className = "item";
-  item.addEventListener("click", () => openProject(index));
-item.addEventListener("touchstart", () => openProject(index));
+
+  // Click + touch para móvil
+item.addEventListener("click", () => openProject(index));
+item.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  openProject(index);
+});
 
   if (project.cover.endsWith(".mp4")) {
     const video = document.createElement("video");
     video.src = project.cover;
-    video.autoplay = true;
+    video.autoplay = false;        // 🔥 no autoplay en móvil
     video.loop = true;
     video.muted = true;
     video.playsInline = true;
+    video.controls = false;
+    video.style.pointerEvents = "none"; // 🔥 deja pasar el tap
     item.appendChild(video);
   } else {
     const img = document.createElement("img");
-img.src = project.cover;
-img.loading = "lazy";
-item.appendChild(img);
+    img.src = project.cover;
+    img.loading = "lazy";
+    item.appendChild(img);
   }
 
   const overlay = document.createElement("div");
@@ -474,12 +481,12 @@ function openProject(index) {
       video.src = src;
       video.controls = true;
       content.appendChild(video);
-    } else {
-     const img = document.createElement("img");
-img.src = project.cover;
-img.loading = "lazy";
-item.appendChild(img);
-    }
+} else {
+  const img = document.createElement("img");
+  img.src = src;
+  img.loading = "lazy";
+  content.appendChild(img);
+}
   });
 
   modal.style.display = "block";
