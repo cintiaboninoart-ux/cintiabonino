@@ -456,18 +456,17 @@ function createItem(project, index) {
   const item = document.createElement("div");
   item.className = "item";
 
+  // Control de tap vs scroll (ya lo tenías bien)
   let startY = 0;
   let startX = 0;
   let isScrolling = false;
 
-  // Touch start
   item.addEventListener("touchstart", (e) => {
     startY = e.touches[0].clientY;
     startX = e.touches[0].clientX;
     isScrolling = false;
   }, { passive: true });
 
-  // Touch move (detecta scroll)
   item.addEventListener("touchmove", (e) => {
     const moveY = Math.abs(e.touches[0].clientY - startY);
     const moveX = Math.abs(e.touches[0].clientX - startX);
@@ -477,27 +476,33 @@ function createItem(project, index) {
     }
   }, { passive: true });
 
-  // Touch end (solo abre si fue tap)
   item.addEventListener("touchend", () => {
-    if (!isScrolling) {
-      openProject(index);
-    }
+    if (!isScrolling) openProject(index);
   });
 
-  // Click normal para desktop
   item.addEventListener("click", () => openProject(index));
 
-  // Media
+  // MEDIA
   if (project.cover.endsWith(".mp4")) {
     const video = document.createElement("video");
+
     video.src = project.cover;
-    video.autoplay = false;
+    video.autoplay = true;
     video.loop = true;
     video.muted = true;
     video.playsInline = true;
     video.controls = false;
+    video.preload = "auto";
+    video.setAttribute("muted", "");       // iOS necesita esto
+    video.setAttribute("playsinline", ""); // iOS necesita esto
     video.style.pointerEvents = "none";
+
     item.appendChild(video);
+
+    // Forzar reproducción en móvil
+    video.addEventListener("canplay", () => {
+      video.play().catch(() => {});
+    });
   } else {
     const img = document.createElement("img");
     img.src = project.cover;
@@ -512,6 +517,7 @@ function createItem(project, index) {
 
   return item;
 }
+
 
 /* ---------- MODAL ---------- */
 
@@ -560,9 +566,14 @@ function prevProject() {
 
 window.addEventListener("load", () => {
   createMasonry();
-  preloadImages();
-});
 
+  // Forzar autoplay en móvil
+  setTimeout(() => {
+    document.querySelectorAll("video").forEach(video => {
+      video.play().catch(() => {});
+    });
+  }, 500);
+});
 
 </script>
 
