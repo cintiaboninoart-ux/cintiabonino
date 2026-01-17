@@ -456,7 +456,7 @@ function createItem(project, index) {
   const item = document.createElement("div");
   item.className = "item";
 
-  // Control de tap vs scroll (ya lo tenías bien)
+  // Control tap vs scroll
   let startY = 0;
   let startX = 0;
   let isScrolling = false;
@@ -482,29 +482,26 @@ function createItem(project, index) {
 
   item.addEventListener("click", () => openProject(index));
 
-  // MEDIA
- if (src.endsWith(".mp4")) {
-  const video = document.createElement("video");
+  // MEDIA portada
+  if (project.cover.endsWith(".mp4")) {
+    const video = document.createElement("video");
+    video.src = project.cover;
+    video.autoplay = true;
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.controls = false;
+    video.preload = "auto";
+    video.setAttribute("muted", "");
+    video.setAttribute("playsinline", "");
+    video.style.pointerEvents = "none";
 
-  video.src = src;
-  video.autoplay = true;
-  video.loop = true;
-  video.muted = true;
-  video.playsInline = true;
-  video.controls = false;
-  video.preload = "auto";
+    item.appendChild(video);
 
-  // iOS necesita estos atributos explícitos
-  video.setAttribute("muted", "");
-  video.setAttribute("playsinline", "");
-
-  content.appendChild(video);
-
-  // Forzar reproducción en móvil
-  video.addEventListener("canplay", () => {
-    video.play().catch(() => {});
-  });
-}
+    // Forzar autoplay móvil
+    video.addEventListener("canplay", () => {
+      video.play().catch(() => {});
+    });
   } else {
     const img = document.createElement("img");
     img.src = project.cover;
@@ -520,21 +517,6 @@ function createItem(project, index) {
   return item;
 }
 
-
-/* ---------- MODAL ---------- */
-
-function openProject(index) {
-  const modal = document.getElementById("modal");
-  const content = document.getElementById("modal-content");
-  const project = projects[index];
-
-  currentProjectIndex = index;
-
-  content.innerHTML = `
-    <h2 class="project-title">${project.title}</h2>
-    <p class="project-description">${project.description}</p>
-  `;
-
   project.images.forEach(src => {
     if (src.endsWith(".mp4")) {
       const video = document.createElement("video");
@@ -542,14 +524,23 @@ function openProject(index) {
       video.controls = true;
       content.appendChild(video);
 } else {
-  const img = document.createElement("img");
-  img.src = src;
-  img.loading = "lazy";
-  content.appendChild(img);
-}
-  });
+if (src.endsWith(".mp4")) {
+  const video = document.createElement("video");
+  video.src = src;
+  video.autoplay = true;
+  video.loop = true;
+  video.muted = true;
+  video.playsInline = true;
+  video.controls = false;
+  video.preload = "auto";
+  video.setAttribute("muted", "");
+  video.setAttribute("playsinline", "");
 
-  modal.style.display = "block";
+  content.appendChild(video);
+
+  video.addEventListener("canplay", () => {
+    video.play().catch(() => {});
+  });
 }
 
 function closeModal() {
