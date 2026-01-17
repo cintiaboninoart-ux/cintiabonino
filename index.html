@@ -82,15 +82,30 @@
   gap: 32px;
 }
 
-.item.big {
-  grid-row: span 2;
+.item {
+  position: relative;
+  cursor: pointer;
 }
 
+/* bloque grande */
+.item.big {
+  grid-row: span 2;
+  min-height: 520px;
+}
+
+/* imágenes normales */
 .item img,
 .item video {
   width: 100%;
   height: auto;
   display: block;
+}
+
+/* imágenes dentro del bloque grande */
+.item.big img,
+.item.big video {
+  height: 100%;
+  object-fit: cover;
 }
 
     /* OVERLAY */
