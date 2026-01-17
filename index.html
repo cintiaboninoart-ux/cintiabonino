@@ -126,15 +126,16 @@
 
     /* OVERLAY */
     .overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.55);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;   /* 🔥 clave para móvil */
+}
 
     .overlay span {
       color: white;
@@ -427,7 +428,8 @@ function createMasonry() {
 function createItem(project, index) {
   const item = document.createElement("div");
   item.className = "item";
-  item.onclick = () => openProject(index);
+  item.addEventListener("click", () => openProject(index));
+item.addEventListener("touchstart", () => openProject(index));
 
   if (project.cover.endsWith(".mp4")) {
     const video = document.createElement("video");
