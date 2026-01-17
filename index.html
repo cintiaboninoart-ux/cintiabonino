@@ -450,6 +450,9 @@ function createMasonry() {
     item.appendChild(overlay);
 
     masonry.appendChild(item);
+    setTimeout(() => {
+  item.classList.add("visible");
+}, 100 + index * 80);
   });
 }
 
