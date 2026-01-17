@@ -76,7 +76,7 @@
     }
 
     /* MASONRY REAL */
-   .masonry {
+.masonry {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 32px;
@@ -87,25 +87,15 @@
   cursor: pointer;
 }
 
-/* bloque grande */
 .item.big {
   grid-row: span 2;
-  min-height: 520px;
 }
 
-/* imágenes normales */
 .item img,
 .item video {
   width: 100%;
   height: auto;
   display: block;
-}
-
-/* imágenes dentro del bloque grande */
-.item.big img,
-.item.big video {
-  height: 100%;
-  object-fit: cover;
 }
 .item {
   opacity: 0;
@@ -262,6 +252,7 @@
 
 <section>
  <div class="masonry" id="masonry"></div>
+
 </section>
 
 <!-- MODAL -->
@@ -419,7 +410,7 @@ function createMasonry() {
     const blockIndex = Math.floor(index / 3);
     const positionInBlock = index % 3;
 
-    // el primero de cada bloque es grande
+    // Primer item de cada bloque = grande
     if (positionInBlock === 0) {
       item.classList.add("big");
 
@@ -459,9 +450,6 @@ function createMasonry() {
     item.appendChild(overlay);
 
     masonry.appendChild(item);
-    setTimeout(() => {
-  item.classList.add("visible");
-}, 100 + index * 80);
   });
 }
 
