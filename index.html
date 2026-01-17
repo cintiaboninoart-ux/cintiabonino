@@ -269,8 +269,6 @@
 
 <script>
 
-<script>
-
 /* ---------- PROYECTOS ---------- */
 
 const projects = [
@@ -285,7 +283,7 @@ const projects = [
   },
   {
     title: "Café para uno",
-    description: "Ilustración para artículo de Revista La Mirada (sección Sociedad y Cultura).",
+    description: "Ilustración para artículo de Revista La Mirada.",
     cover: "cafe para uno.png",
     images: ["cafe para uno mock.png"]
   },
@@ -358,7 +356,7 @@ function createItem(project, index) {
   // Click desktop
   item.addEventListener("click", () => openProject(index));
 
-  // Tap móvil (evita abrir cuando scrolleás)
+  // Tap móvil (diferencia tap de scroll)
   let startY = 0;
   let isScrolling = false;
 
@@ -482,6 +480,7 @@ window.addEventListener("load", () => {
 });
 
 </script>
+
 
 
 
