@@ -76,54 +76,23 @@
     }
 
     /* MASONRY REAL */
-    .masonry {
-      position: relative;
-    }
-
-    .column {
-      float: left;
-      width: 33.333%;
-      padding: 12px;
-      box-sizing: border-box;
-    }
-
-    .item {
-      margin-bottom: 24px;
-      position: relative;
-      cursor: pointer;
-      transition: box-shadow 0.3s ease, filter 0.3s ease;
-    }
-
-    .item img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .item:hover {
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-      filter: brightness(1.05);
-    }
-    .item.featured {
-  transform: scale(1.08);
-  z-index: 2;
-}
-    .item.featured {
-  transform: none;
-  margin-bottom: 60px;
+   .masonry {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
 }
 
-.item.featured img,
-.item.featured video {
+.item.big {
+  grid-row: span 2;
+}
+
+.item img,
+.item video {
   width: 100%;
   height: auto;
+  display: block;
 }
-.item.featured {
-  min-height: 520px;
-}
-  .item.featured {
-  margin-bottom: 80px;
-}
+
     /* OVERLAY */
     .overlay {
       position: absolute;
@@ -268,11 +237,7 @@
 </header>
 
 <section>
-  <div class="masonry" id="masonry">
-    <div class="column"></div>
-    <div class="column"></div>
-    <div class="column"></div>
-  </div>
+ <div class="masonry" id="masonry"></div>
 </section>
 
 <!-- MODAL -->
@@ -421,21 +386,35 @@ let currentProjectIndex = 0;
 
 function createMasonry() {
   const masonry = document.getElementById("masonry");
-  const columns = masonry.querySelectorAll(".column");
-
-  columns.forEach(col => col.innerHTML = "");
+  masonry.innerHTML = "";
 
   projects.forEach((project, index) => {
     const item = document.createElement("div");
-item.className = "item";
+    item.className = "item";
 
-if (project.featured) {
-  item.classList.add("featured");
-}
+    const blockIndex = Math.floor(index / 3);
+    const positionInBlock = index % 3;
+
+    // el primero de cada bloque es grande
+    if (positionInBlock === 0) {
+      item.classList.add("big");
+
+      // alterna izquierda / derecha
+      if (blockIndex % 2 === 0) {
+        item.style.gridColumn = "1";
+      } else {
+        item.style.gridColumn = "2";
+      }
+    } else {
+      if (blockIndex % 2 === 0) {
+        item.style.gridColumn = "2";
+      } else {
+        item.style.gridColumn = "1";
+      }
+    }
 
     item.onclick = () => openProject(index);
 
-    // Portada imagen o video
     if (project.cover.endsWith(".mp4")) {
       const video = document.createElement("video");
       video.src = project.cover;
@@ -443,8 +422,6 @@ if (project.featured) {
       video.loop = true;
       video.muted = true;
       video.playsInline = true;
-      video.style.width = "100%";
-      video.style.display = "block";
       item.appendChild(video);
     } else {
       const img = document.createElement("img");
@@ -455,11 +432,9 @@ if (project.featured) {
     const overlay = document.createElement("div");
     overlay.className = "overlay";
     overlay.innerHTML = `<span>${project.title}</span>`;
-
     item.appendChild(overlay);
 
-    const columnIndex = index % columns.length;
-    columns[columnIndex].appendChild(item);
+    masonry.appendChild(item);
   });
 }
 
