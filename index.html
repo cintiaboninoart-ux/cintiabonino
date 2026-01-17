@@ -391,7 +391,34 @@ const projects = [
     ]
   }
 ];
+/* ---------- PRELOAD INTELIGENTE ---------- */
 
+function preloadImages() {
+  const imagesToPreload = [];
+
+  projects.forEach(project => {
+    project.images.forEach(src => {
+      if (!src.endsWith(".mp4")) {
+        imagesToPreload.push(src);
+      }
+    });
+  });
+
+  let index = 0;
+
+  function loadNext() {
+    if (index >= imagesToPreload.length) return;
+
+    const img = new Image();
+    img.src = imagesToPreload[index];
+    index++;
+
+    // Carga una imagen cada 300ms para no saturar la red
+    setTimeout(loadNext, 300);
+  }
+
+  loadNext();
+}
 let currentProjectIndex = 0;
 
 /* ---------- GRID ---------- */
@@ -531,7 +558,11 @@ function prevProject() {
   openProject(currentProjectIndex);
 }
 
-window.addEventListener("load", createMasonry);
+window.addEventListener("load", () => {
+  createMasonry();
+  preloadImages();
+});
+
 
 </script>
 
