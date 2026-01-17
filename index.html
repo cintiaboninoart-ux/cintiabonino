@@ -77,18 +77,30 @@
 
     /* MASONRY REAL */
 .masonry {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
   gap: 32px;
+  align-items: start;
 }
 
-.item {
-  position: relative;
-  cursor: pointer;
+.row.reverse {
+  grid-template-columns: 1fr 2fr;
 }
 
-.item.big {
+.big {
   grid-row: span 2;
+}
+
+.small-grid {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 32px;
 }
 
 .item img,
@@ -97,6 +109,12 @@
   height: auto;
   display: block;
 }
+
+.item {
+  position: relative;
+  cursor: pointer;
+}
+
 .item {
   opacity: 0;
   transform: translateY(20px);
@@ -403,57 +421,69 @@ function createMasonry() {
   const masonry = document.getElementById("masonry");
   masonry.innerHTML = "";
 
-  projects.forEach((project, index) => {
-    const item = document.createElement("div");
-    item.className = "item";
+  for (let i = 0; i < projects.length; i += 3) {
+    const row = document.createElement("div");
+    row.className = "row";
 
-    const blockIndex = Math.floor(index / 3);
-    const positionInBlock = index % 3;
-
-    // Primer item de cada bloque = grande
-    if (positionInBlock === 0) {
-      item.classList.add("big");
-
-      // alterna izquierda / derecha
-      if (blockIndex % 2 === 0) {
-        item.style.gridColumn = "1";
-      } else {
-        item.style.gridColumn = "2";
-      }
-    } else {
-      if (blockIndex % 2 === 0) {
-        item.style.gridColumn = "2";
-      } else {
-        item.style.gridColumn = "1";
-      }
+    // alterna izquierda / derecha
+    if ((i / 3) % 2 !== 0) {
+      row.classList.add("reverse");
     }
 
-    item.onclick = () => openProject(index);
+    // Proyecto grande
+    const bigProject = projects[i];
+    const bigItem = createItem(bigProject, i);
+    bigItem.classList.add("big");
 
-    if (project.cover.endsWith(".mp4")) {
-      const video = document.createElement("video");
-      video.src = project.cover;
-      video.autoplay = true;
-      video.loop = true;
-      video.muted = true;
-      video.playsInline = true;
-      item.appendChild(video);
-    } else {
-      const img = document.createElement("img");
-      img.src = project.cover;
-      item.appendChild(img);
+    // Contenedor de las dos chicas
+    const smallGrid = document.createElement("div");
+    smallGrid.className = "small-grid";
+
+    if (projects[i + 1]) {
+      smallGrid.appendChild(createItem(projects[i + 1], i + 1));
     }
 
-    const overlay = document.createElement("div");
-    overlay.className = "overlay";
-    overlay.innerHTML = `<span>${project.title}</span>`;
-    item.appendChild(overlay);
+    if (projects[i + 2]) {
+      smallGrid.appendChild(createItem(projects[i + 2], i + 2));
+    }
 
-    masonry.appendChild(item);
-    setTimeout(() => {
-  item.classList.add("visible");
-}, 100 + index * 80);
-  });
+    // Orden según fila
+    if ((i / 3) % 2 === 0) {
+      row.appendChild(bigItem);
+      row.appendChild(smallGrid);
+    } else {
+      row.appendChild(smallGrid);
+      row.appendChild(bigItem);
+    }
+
+    masonry.appendChild(row);
+  }
+}
+  function createItem(project, index) {
+  const item = document.createElement("div");
+  item.className = "item";
+  item.onclick = () => openProject(index);
+
+  if (project.cover.endsWith(".mp4")) {
+    const video = document.createElement("video");
+    video.src = project.cover;
+    video.autoplay = true;
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
+    item.appendChild(video);
+  } else {
+    const img = document.createElement("img");
+    img.src = project.cover;
+    item.appendChild(img);
+  }
+
+  const overlay = document.createElement("div");
+  overlay.className = "overlay";
+  overlay.innerHTML = `<span>${project.title}</span>`;
+  item.appendChild(overlay);
+
+  return item;
 }
 
 function getShortestColumn(columns) {
